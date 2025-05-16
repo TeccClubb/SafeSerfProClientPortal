@@ -40,7 +40,7 @@ const SubscriptionHistory = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-t">
+            <tr className="">
               <td className="px-4 py-2 text-blue-600">#1</td>
               <td className="px-4 py-2 text-blue-600 underline cursor-pointer">My super device</td>
               <td className="px-4 py-2">—</td>
@@ -53,8 +53,8 @@ const SubscriptionHistory = () => {
         <div className="flex justify-between items-center mt-2 text-xs text-gray-500">
           <span>Showing 1 to 1 of 1 entries</span>
           <div className="space-x-1">
-            <button className="border px-2 py-1 rounded">Previous</button>
-            <button className="border px-2 py-1 bg-blue-100 text-blue-700 rounded">1</button>
+            <button className="border border-gray- px-2 py-1 rounded">Previous</button>
+            <button className="border px-2 py-1 bg-blue-600 text-white rounded">1</button>
             <button className="border px-2 py-1 rounded">Next</button>
           </div>
         </div>
