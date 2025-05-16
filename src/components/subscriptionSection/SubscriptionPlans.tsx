@@ -1,7 +1,16 @@
+"use client"
+
+import { ChevronDown } from "lucide-react";
+import Summary from "../product/Summary";
+import { useState } from "react";
+
+import ContinueButton from "./ContinueButton";
+
 const SubscriptionPlans = () => {
+    const [showSummary, setShowSummary] = useState(true);
     return (
         <div>
-            <h2 className="text-lg font-semibold mb-4">Modify subscription</h2>
+            <h2 className="text-lg font-semibold text-gray-600 mb-4">Modify subscription</h2>
             <div className="rounded-lg p-6 bg-white mt-6">
                 <div className="grid md:grid-cols-2 gap-6">
                     {/* Basic Plan */}
@@ -49,52 +58,29 @@ const SubscriptionPlans = () => {
                 </div>
 
                 {/* ✔ New Checkout Summary */}
-                <div className="w-full max-w-5xl bg-white rounded-md mt-10 flex flex-col gap-3 text-sm ">
-                    {/* Header */}
-                    <div className="flex justify-between items-center">
-                        <p className="text-gray-900 font-medium">Check out Summary</p>
-                        <div className="w-4 h-4 flex items-center justify-center">
-                            <img src="/chevron-down.svg" alt="Close" className="w-4 h-4 cursor-pointer" />
-                        </div>
-
+               {/* Checkout Summary */}
+            <div className="mt-6 p-4 rounded-md bg-white shadow-sm">
+                {/* <h3 className="text-2xl text-slate-700  font-semibold mb-4">Check out Summary</h3> */}
+                <div className="mt-6 border border-gray-100 p-4 rounded-md bg-white shadow-sm">
+                    <div
+                        className="flex items-center justify-between cursor-pointer mb-2"
+                        onClick={() => setShowSummary((prev) => !prev)}
+                    >
+                        <h3 className="text-2xl text-slate-700 font-semibold">Checkout Summary</h3>
+                        <ChevronDown
+                            className={`transition-transform duration-300 ${showSummary ? 'rotate-180' : ''}`}
+                        />
                     </div>
 
-                    {/* Line Items */}
-                    {[
-                        ["Subtotal", "€ 5,51"],
-                        ["Period", "12 months"],
-                        ["Tax", "€ 3,03"],
-                        ["Discount", "€ 14,47"],
-                    ].map(([label, value]) => (
-                        <div key={label} className="flex justify-between items-center px-1.5">
-                            <span className="text-gray-900">{label}</span>
-                            <span className="text-gray-500">{value}</span>
-                        </div>
-                    ))}
-
-                    {/* Divider */}
-                    <div className="border-t border-neutral-200 my-2" />
-
-                    {/* Total */}
-                    <div className="flex justify-between items-center px-1.5">
-                        <span className="text-gray-900 text-lg font-medium">Total</span>
-                        <span className="text-black text-lg font-medium">€ 79,00</span>
-                    </div>
-
-                    {/* Note */}
-                    <p className="text-neutral-400 text-sm  mt-2">
-                        Subscription modification are executed immediately after the order confirmation. In case of upgrade the difference is recalculated and is shown in Total. For downgrade cases, please submit a support ticket. The order will be processed manually.
-                    </p>
-
-                    {/* Continue Button */}
-                    <div className="flex justify-end mt-4">
-
-                        <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-md flex justify-end items-center gap-1">
-                            <span className="text-white text-base">+</span>
-                            Continue
-                        </button>
-                    </div>
+                    {showSummary && (
+                        <>
+                            <Summary />
+                            <ContinueButton></ContinueButton>
+                            
+                        </>
+                    )}
                 </div>
+            </div>
             </div>
         </div>
     );

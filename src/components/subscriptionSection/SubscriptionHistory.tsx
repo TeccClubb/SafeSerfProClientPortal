@@ -6,7 +6,7 @@ const SubscriptionHistory = () => {
 
       <TableSection
                      title="Subscription history"
-                     actionLabel="+ Open Ticket"
+                     
                      searchable
                      pagination
                      columns={['#','Subscription','Details','Paid','Purchase date']}

@@ -10,7 +10,7 @@ const Summary = () => {
                 <p>Discount: <span className="float-right">€ 14.47</span></p>
             </div>
             {/* <hr /> */}
-            <p className="font-bold text-base  border-t border-slate-400  py-5">
+            <p className="font-bold text-base  border-t border-gray-200   py-5">
                 Total: <span className="float-right text-lg">€ 79.00</span>
             </p>
             <p className="text-neutral-400 text-sm font-normal">
