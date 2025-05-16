@@ -30,14 +30,20 @@ export default function TableSection({
             {/* text-slate-700 text-lg font-semibold */}
             <div className="flex justify-between pb-3 items-center">
                 <h2 className="text-slate-700 text-lg font-semibold">{title}</h2>
-                <button
-                    className={`${actionLabel === "+ Upgrade"
-                        ? "bg-green-500 hover:bg-green-600"
-                        : "bg-blue-600 hover:bg-blue-700"
-                        } text-white  px-3 py-1.5 rounded text-xs `}
-                >
-                    {actionLabel}
-                </button>
+
+                {
+                    actionLabel ? (
+                        <button
+                            className={`${actionLabel === "+ Upgrade"
+                                ? "bg-green-500 hover:bg-green-600"
+                                : "bg-blue-600 hover:bg-blue-700"
+                                } text-white  px-3 py-1.5 rounded text-xs `}
+                        >
+                            {actionLabel}
+                        </button>
+                    ) : ""
+                }
+
 
             </div>
 
@@ -72,7 +78,7 @@ export default function TableSection({
                                 {columns.map((col, i) => (
                                     <th
                                         key={i}
-                                        className={`p-2 text-gray-600 text-sm font-medium bg-slate-50 leading-tight min-w-[120px] ${i !== 0 ? 'border-l border-slate-200' : ''}`}
+                                        className={`p-2 text-slate-500 text-sm font-semibold  bg-slate-50 leading-tight min-w-[120px] ${i !== 0 ? 'border-l border-slate-200' : ''}`}
                                     >
                                         {col}
                                     </th>
@@ -87,7 +93,7 @@ export default function TableSection({
                                     {row.map((cell, j) => (
                                         <td
                                             key={j}
-                                            className={`p-2 pt-3 ${highlightColumns?.includes(j) ? "text-blue-600 font-medium" : ""}`}
+                                            className={`p-2  pt-3 ${highlightColumns?.includes(j) ? "text-blue-600 font-normal" : " text-slate-500"}`}
                                         >
                                             {customCellRender
                                                 ? customCellRender(i, j, cell)
