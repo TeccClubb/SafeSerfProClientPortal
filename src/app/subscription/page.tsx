@@ -3,6 +3,7 @@ import SubscriptionTable from "@/components/subscriptionSection/SubscriptionTabl
 import SubscriptionPlans from "@/components/subscriptionSection/SubscriptionPlans";
 import SubscriptionHistory from "@/components/subscriptionSection/SubscriptionHistory";
 
+
 export default function SubscriptionPage() {
   return (
     <div className="font-geist-sans bg-gray-100 min-h-screen w-full">
