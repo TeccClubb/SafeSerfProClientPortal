@@ -3,13 +3,16 @@ import { JSX } from 'react/jsx-runtime';
 
 interface TableSectionProps {
     title: string;
-    actionLabel: string;
+    actionLabel?: string;
     columns: string[];
     data: (string | JSX.Element)[][];
     searchable?: boolean;
     pagination?: boolean;
     highlightColumns?: number[];
+    removeBtn?: boolean; // You can keep it if needed
+    customCellRender?: (rowIndex: number, colIndex: number, cellValue: string | JSX.Element) => JSX.Element | string;
 }
+
 
 export default function TableSection({
     title,
@@ -18,6 +21,8 @@ export default function TableSection({
     data,
     searchable,
     pagination,
+    removeBtn,
+    customCellRender,
     highlightColumns = [], // Default to an empty array if not provided 
 }: TableSectionProps) {
     return (
@@ -29,7 +34,7 @@ export default function TableSection({
                     className={`${actionLabel === "+ Upgrade"
                         ? "bg-green-500 hover:bg-green-600"
                         : "bg-blue-600 hover:bg-blue-700"
-                        } text-white  px-3 py-1.5 rounded text-xs  leading-tight`}
+                        } text-white  px-3 py-1.5 rounded text-xs `}
                 >
                     {actionLabel}
                 </button>
@@ -41,12 +46,17 @@ export default function TableSection({
                 {searchable && (
                     <div className="p-4 flex flex-col sm:flex-row sm:justify-between gap-3">
                         <div>
-                            <input
-                                type="text"
-                                placeholder="25"
+                            <select
                                 className="border border-neutral-200 rounded px-2 py-1 text-sm w-full sm:w-20"
-                            />
+                                defaultValue=""
+                            >
+                                <option value="" disabled>25</option>
+                                <option value="50">50</option>
+                                <option value="25">75</option>
+                                <option value="100">100</option>
+                            </select>
                         </div>
+
                         <input
                             type="text"
                             placeholder="Search..."
@@ -62,12 +72,14 @@ export default function TableSection({
                                 {columns.map((col, i) => (
                                     <th
                                         key={i}
-                                        className="p-2 text-gray-600 text-sm font-medium bg-slate-50 leading-tight min-w-[120px]"
+                                        className={`p-2 text-gray-600 text-sm font-medium bg-slate-50 leading-tight min-w-[120px] ${i !== 0 ? 'border-l border-slate-200' : ''}`}
                                     >
                                         {col}
                                     </th>
                                 ))}
                             </tr>
+
+
                         </thead>
                         <tbody>
                             {data.map((row, i) => (
@@ -75,16 +87,18 @@ export default function TableSection({
                                     {row.map((cell, j) => (
                                         <td
                                             key={j}
-                                            className={`p-2 pt-3   ${highlightColumns?.includes(j) ? "text-blue-600 font-medium" : ""
-                                                }`}
+                                            className={`p-2 pt-3 ${highlightColumns?.includes(j) ? "text-blue-600 font-medium" : ""}`}
                                         >
-                                            {cell}
+                                            {customCellRender
+                                                ? customCellRender(i, j, cell)
+                                                : cell}
                                         </td>
+
                                     ))}
                                 </tr>
                             ))}
-
                         </tbody>
+
                     </table>
 
 

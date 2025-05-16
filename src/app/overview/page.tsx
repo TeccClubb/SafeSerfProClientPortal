@@ -5,35 +5,23 @@ import React from 'react';
 import StatsSection from '@/components/stateSection';
 import TableSection from '@/components/tableSection';
 import Image from 'next/image';
+import Navbar_Below from '@/components/navBar/NavBar2';
+
+const statsData = [
+  { label: 'Tickets', value: 1, color: 'text-red-500 border-red-500 text-sm font-medium' },
+  { label: 'Subscriptions', value: 0, color: 'text-green-500 border-green-500 text-sm font-medium' },
+  { label: 'Devices', value: 0, color: 'text-blue-500 border-blue-500 text-sm font-medium' },
+  { label: 'DNS', value: 29, color: 'text-slate-500 border-indigo-500 text-sm font-medium' },
+  { label: 'VPN Servers', value: 253, color: 'text-slate-500 border-purple-500 text-sm font-medium' },
+];
 
 
 export default function Overview() {
     return (
         <div className="p-3 lg:p-20 bg-slate-50 min-h-screen lg:text-sm   text-gray-700 space-y-8">
 
-            <div className="flex gap-7 justify-end items-center">
-                <div className="flex items-center gap-1 text-gray-700">
-                    <Image src="/overview/device.png" alt="device" width={20} height={20}>
-
-                    </Image>
-                    <span className='text-slate-600 text-base font-normal'>Devices</span>
-                </div>
-
-                <div className="flex items-center gap-1 text-gray-700">
-                    <Image src="/overview/dnsserver.png" alt="device" width={20} height={20}>
-
-                    </Image>
-                    <span className='text-slate-600 text-base font-normal'>Smart DNS</span>
-                </div>
-
-                <div className="flex items-center gap-1 text-gray-700">
-                    <Image src="/overview/vpncrediental.png" alt="device" width={20} height={20}>
-
-                    </Image>
-                    <span className='text-slate-600 text-base font-normal'>VPN Credential</span>
-                </div>
-            </div>
-            <StatsSection />
+             <Navbar_Below></Navbar_Below>
+            <StatsSection stats={statsData} />
 
             <TableSection
                 title="Subscriptions"
