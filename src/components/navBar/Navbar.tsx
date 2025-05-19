@@ -23,9 +23,9 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-6 text-sm text-gray-600">
           <Link href="/overview" className="hover:text-black">Overview</Link>
           <Link href="/subscriptions" className="hover:text-black">Subscriptions</Link>
-          <Link href="/products" className="hover:text-black">Products</Link>
+          <Link href="/product" className="hover:text-black">Products</Link>
           <Link href="/knowledge-base" className="hover:text-black">Knowledge Base</Link>
-          <Link href="/refer" className="hover:text-black">Refer a friend</Link>
+          <Link href="/referFriend" className="hover:text-black">Refer a friend</Link>
           <Link
             href="/support"
             className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-md font-medium"
@@ -48,7 +48,7 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden mt-4 flex flex-col space-y-4 ml-6  text-sm text-gray-600">
           <Link href="/overview" className="hover:text-black">Overview</Link>
-          <Link href="/subscriptions" className="hover:text-black">Subscriptions</Link>
+          <Link href="/subscription" className="hover:text-black">Subscriptions</Link>
           <Link href="/products" className="hover:text-black">Products</Link>
           <Link href="/knowledge-base" className="hover:text-black">Knowledge Base</Link>
           <Link href="/refer" className="hover:text-black">Refer a friend</Link>
