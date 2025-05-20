@@ -14,7 +14,7 @@ export const AddonCard: FC<AddonCardProps> = ({ name, added,image }) => {
        <Image src={image} alt={name} width={40} height={40} className="mx-auto" />
       <div className="text-black text-sm font-semibold mt-4">{name}</div>
       <button
-        className={`mt-2 text-sm px-2 py-1 mt-4 rounded ${
+        className={` text-sm px-2 py-1 mt-4 rounded ${
           added
             ? "px-4 py-1.5 bg-white rounded text-black border  border-slate-100"
             : "px-2.5 py-1.5 bg-slate-700 rounded text-white"

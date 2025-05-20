@@ -18,7 +18,7 @@ const statsData = [
 
 export default function Overview() {
     return (
-        <div className="p-3 lg:p-20 bg-slate-50 min-h-screen lg:text-sm   text-gray-700 space-y-8">
+        <div className="p-4 lg:px-20 bg-slate-50 min-h-screen lg:text-sm   text-gray-700 space-y-8">
 
              {/* <Navbar_Below></Navbar_Below> */}
             <StatsSection stats={statsData} />

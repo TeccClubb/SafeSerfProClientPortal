@@ -10,7 +10,7 @@ export default function Page() {
 
     const [showSummary, setShowSummary] = useState(true);
     return (
-        <div className=" w-full mx-auto px-4 py-10 lg:p-13">
+        <div className="p-4 lg:px-20 bg-slate-50  min-h-screen lg:text-sm    space-y-8">
             <h2 className="text-2xl text-slate-700  font-semibold mb-4">Products</h2>
 
             {/* Product List */}
