@@ -1,0 +1,120 @@
+
+"use client"
+import FormLabel from "@/components/ui/FormLabel";
+import { FormInput } from "@/components/ui/FormInput";
+import FormSelect from "@/components/ui/FormSelect";
+import FormTextarea from "@/components/ui/FormTextarea";
+import FormFileUpload from "@/components/ui/FormFileUpload";
+import FormButton from "@/components/ui/FormButton";
+import { useForm } from "react-hook-form";
+
+export default function CreateTicketPage() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data: any) => {
+    console.log("Form Submitted:", data);
+  };
+
+  return (
+    <div className="p-4 lg:px-20 bg-slate-50 min-h-screen text-slate-900 space-y-8">
+      <h2 className="text-lg  font-bold text-slate-600">Open a ticket</h2>
+
+      <form
+        className="space-y-6 bg-white p-6 rounded-md shadow"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div>
+          <FormLabel htmlFor="subject" className={errors.subject ? "text-red-600" : ""}>
+            Subject
+          </FormLabel>
+          <FormInput
+            id="subject"
+            placeholder="Enter subject"
+            registration={register("subject", { required: "Subject is required" })}
+            error={errors.subject}
+            className="bg-slate-50 mt-1 px-3 py-1"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <FormLabel htmlFor="department" className={errors.department ? "text-red-600" : ""}>
+              Department
+            </FormLabel>
+            <FormSelect
+              id="department"
+              label="department"
+              options={[
+                { value: "Marketing", label: "Marketing" },
+                { value: "IT", label: "IT" },
+                { value: "HR", label: "HR" },
+              ]}
+              registration={register("department", { required: "Department is required" })}
+              error={errors.department}
+              className="bg-slate-50 mt-1 border-slate-100"
+            />
+          </div>
+
+          <div>
+            <FormLabel htmlFor="priority">Priority</FormLabel>
+            <FormSelect
+              id="priority"
+              label="priority"
+              options={[
+                { label: "Medium", value: "Medium" },
+                { label: "Low", value: "Low" },
+                { label: "High", value: "High" },
+              ]}
+              registration={register("priority")}
+              className="bg-slate-50 mt-1 border-slate-100"
+            />
+
+          </div>
+        </div>
+
+        <div>
+          <FormLabel htmlFor="body" className={errors.body ? "text-red-600" : ""}>
+            Ticket Body
+          </FormLabel>
+          <FormTextarea
+
+            id="body"
+            placeholder="I have an issue"
+            rows={4}
+            registration={register("body", { required: "Ticket body is required" })}
+            error={errors.body}
+            className="bg-slate-50 mt-1"
+          />
+        </div>
+
+        <div>
+          <FormLabel htmlFor="attachment" className={errors.attachment ? "text-red-600" : ""}>
+            Attachments
+          </FormLabel>
+          <FormFileUpload
+            label="Upload Invoice"
+            registration={register("invoice")}
+            error={errors.invoice}
+            className="mb-4"
+            inputClassName="bg-slate-50 text-sm"
+            buttonClassName="bg-slate-400 text-white hover:bg-blue-600"
+          />
+
+        </div>
+
+        <div className="pt-4 text-right">
+          <FormButton
+            type="submit"
+            label="Save"
+            className="bg-slate-900 hover:bg-blue-700 text-sm px-8 rounded-md"
+          />
+        </div>
+
+      </form>
+    </div>
+  );
+}

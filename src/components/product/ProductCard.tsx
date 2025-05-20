@@ -8,7 +8,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ title, description, price, selected, onSelect }: ProductCardProps) => {
     return (
-        <div className={`border p-4 rounded-md ${selected ? "border-blue-500 bg-blue-50" : "border-gray-300"} mb-2`}>
+        <div className={`border p-4 rounded-md ${selected ? "border-blue-500 bg-blue-50" : "border-gray-100"} mb-2`}>
             <div className="flex justify-between items-center">
                 <div className="flex gap-3">
                     <input type="checkbox" className="mr-2" checked={selected} onChange={onSelect} />

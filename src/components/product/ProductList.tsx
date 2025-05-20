@@ -6,7 +6,7 @@ const ProductList = () => {
   const [selectedProduct, setSelectedProduct] = useState<"dedicatedIp" | "ddos" | "multipleDevices" | null>("dedicatedIp");
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 rounded bg-white">
       <ProductCard
         title="Dedicated IP for Your VPN"
         description="Get all-in-one Windows protection with Antivirus and Security Updater."
