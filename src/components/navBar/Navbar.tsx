@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-full  bg-white border-b border-gray-200  py-4">
-      <div className="flex items-center justify-end  lg:px-12 space-x-4  mx-auto max-w-screen-xl">
+      <div className="flex items-center justify-end  lg:px-20 space-x-4  mx-auto max-w-screen-xl">
         {/* Mobile toggle button only visible on small screens */}
         <button
           className="md:hidden text-gray-600 focus:outline-none"

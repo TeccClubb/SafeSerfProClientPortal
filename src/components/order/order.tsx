@@ -21,7 +21,7 @@ const Order = () => {
                           <div className="pt-17 pb-4">
 
                                 <h3 className="self-stretch opacity-70  text-slate-800 text-sm font-bold">Basic Plan</h3>
-                                <p className="text-2xl font-bold mt-2">
+                                <p className="text-2xl text-slate-900 font-bold mt-2">
                                     $4.99<span className="text-sm text-slate-900 font-normall">/month</span>
                                 </p>
                                 <ul className="mt-4 text-sm text-gray-600 space-y-1">
@@ -45,7 +45,7 @@ const Order = () => {
                             <div className="pt-4 pb-2">
 
                                 <h3 className="self-stretch opacity-70  text-slate-800 text-sm font-bold">Premium Plan</h3>
-                                <p className="text-2xl font-bold mt-2">
+                                <p className="text-2xl font-bold text-slate-900 mt-2">
                                     $19.99<span className="text-sm text-slate-900 font-normal">/month</span>
                                 </p>
                                 <ul className="mt-4 text-sm text-gray-600 space-y-1">
@@ -69,7 +69,7 @@ const Order = () => {
                             <div className="pt-4 pb-2">
 
                                 <h3 className="self-stretch opacity-70  text-slate-800 text-sm font-bold">VPN Premium Plan</h3>
-                                <p className="text-2xl font-bold mt-2">
+                                <p className="text-2xl font-bold mt-2 text-slate-900">
                                     $29.99<span className="text-sm text-slate-900 font-normal">/month</span>
                                 </p>
                                 <ul className="mt-4 text-sm text-gray-600 space-y-1">
