@@ -1,22 +1,26 @@
+"use client"
 import React from 'react';
 import { JSX } from 'react/jsx-runtime';
-
+import { useRouter } from 'next/navigation';
 interface TableSectionProps {
     title: string;
     actionLabel?: string;
+    actionLink?: string; // <-- New prop
     columns: string[];
     data: (string | JSX.Element)[][];
     searchable?: boolean;
     pagination?: boolean;
     highlightColumns?: number[];
-    removeBtn?: boolean; // You can keep it if needed
+    removeBtn?: boolean;
     customCellRender?: (rowIndex: number, colIndex: number, cellValue: string | JSX.Element) => JSX.Element | string;
 }
+
 
 
 export default function TableSection({
     title,
     actionLabel,
+    actionLink,
     columns,
     data,
     searchable,
@@ -25,24 +29,27 @@ export default function TableSection({
     customCellRender,
     highlightColumns = [], // Default to an empty array if not provided 
 }: TableSectionProps) {
+
+
+    const router = useRouter();
     return (
         <div className="space-y-2">
             {/* text-slate-700 text-lg font-semibold */}
             <div className="flex justify-between pb-3 items-center">
                 <h2 className="text-slate-700 text-lg font-semibold">{title}</h2>
 
-                {
-                    actionLabel ? (
-                        <button
-                            className={`${actionLabel === "+ Upgrade"
-                                ? "bg-green-500 hover:bg-green-600"
-                                : "bg-blue-600 hover:bg-blue-700"
-                                } text-white  px-3 py-1.5 rounded text-xs `}
-                        >
-                            {actionLabel}
-                        </button>
-                    ) : ""
-                }
+                {actionLabel && actionLink && (
+                    <button
+                        onClick={() => router.push(actionLink)}
+                        className={`${actionLabel === "+ Upgrade"
+                            ? "bg-green-500 hover:bg-green-600"
+                            : "bg-blue-600 hover:bg-blue-700"
+                            } text-white px-3 py-1.5 rounded text-xs`}
+                    >
+                        {actionLabel}
+                    </button>
+                )}
+
 
 
             </div>

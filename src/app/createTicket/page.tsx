@@ -95,14 +95,29 @@ export default function CreateTicketPage() {
           <FormLabel htmlFor="attachment" className={errors.attachment ? "text-red-600" : ""}>
             Attachments
           </FormLabel>
-          <FormFileUpload
-            label="Upload Invoice"
-            registration={register("invoice")}
-            error={errors.invoice}
-            className="mb-4"
-            inputClassName="bg-slate-50 text-sm"
-            buttonClassName="bg-slate-400 text-white hover:bg-blue-600"
-          />
+          <div className="flex lg:w-80 border border-gray-300 rounded-md overflow-hidden">
+            <input
+              type="file"
+              {...register("attachment", { required: "Attachment is required" })}
+              name="attachment"
+              className="text-sm px-2 py-1 focus:outline-none"
+            />
+            <button
+              type="button"
+              onClick={() =>
+                document.querySelector<HTMLInputElement>('input[name="attachment"]')?.click()
+              }
+              className="text-sm px-3 py-1 border-l border-gray-300 bg-white"
+            >
+              +
+            </button>
+          </div>
+
+          {/* Show error message if needed */}
+          {errors.attachment && (
+            <p className="text-sm text-red-600 mt-1">{typeof errors.attachment.message === "string" ? errors.attachment.message : null}</p>
+          )}
+
 
         </div>
 

@@ -8,11 +8,11 @@ import Image from 'next/image';
 import Navbar_Below from '@/components/navBar/NavBar2';
 
 const statsData = [
-  { label: 'Tickets', value: 1, color: 'text-red-500 border-red-500 text-sm font-medium' },
-  { label: 'Subscriptions', value: 0, color: 'text-green-500 border-green-500 text-sm font-medium' },
-  { label: 'Devices', value: 0, color: 'text-blue-500 border-blue-500 text-sm font-medium' },
-  { label: 'DNS', value: 29, color: 'text-slate-500 border-indigo-500 text-sm font-medium' },
-  { label: 'VPN Servers', value: 253, color: 'text-slate-500 border-purple-500 text-sm font-medium' },
+    { label: 'Tickets', value: 1, color: 'text-red-500 border-red-500 text-sm font-medium' },
+    { label: 'Subscriptions', value: 0, color: 'text-green-500 border-green-500 text-sm font-medium' },
+    { label: 'Devices', value: 0, color: 'text-blue-500 border-blue-500 text-sm font-medium' },
+    { label: 'DNS', value: 29, color: 'text-slate-500 border-indigo-500 text-sm font-medium' },
+    { label: 'VPN Servers', value: 253, color: 'text-slate-500 border-purple-500 text-sm font-medium' },
 ];
 
 
@@ -20,12 +20,13 @@ export default function Overview() {
     return (
         <div className="p-4 lg:px-20 bg-slate-50 min-h-screen lg:text-sm   text-gray-700 space-y-8">
 
-             {/* <Navbar_Below></Navbar_Below> */}
+            {/* <Navbar_Below></Navbar_Below> */}
             <StatsSection stats={statsData} />
 
             <TableSection
                 title="Subscriptions"
                 actionLabel="+ Upgrade"
+                actionLink="/upgrade" // <-- link to upgrade page
                 columns={['Subscription', 'Type', 'Connections', 'Paid', 'Next billing date', 'Purchase date']}
                 data={[
                     ['My monthly subscription', 'Monthly', '2', '$9.99', '2024-08-01', '2024-08-01 23:06:18']
@@ -33,20 +34,21 @@ export default function Overview() {
                 highlightColumns={[0]}
             />
 
-
             <TableSection
                 title="Products"
                 actionLabel="+ Add Product"
+                actionLink="/addProduct" // <-- link to add product page
                 columns={['#', 'Product', 'Details', 'Paid', 'Purchase date']}
                 data={[
                     ['#1', 'My super device', '', '', '2024-08-01 23:06:18']
                 ]}
-                highlightColumns={[0,1]}
+                highlightColumns={[0, 1]}
             />
 
             <TableSection
                 title="Support Tickets"
                 actionLabel="+ Open Ticket"
+                actionLink="/createTicket" // <-- link to create ticket page
                 searchable
                 pagination
                 columns={['Ticket #', 'Subject', 'Contact', 'Department', 'Project', 'Service', 'Priority', 'Status', 'Last Reply']}
@@ -56,9 +58,9 @@ export default function Overview() {
                         '2024-08-01 23:06:18'
                     ]
                 ]}
-                highlightColumns={[0,1]}
-
+                highlightColumns={[0, 1]}
             />
+
         </div>
     );
 }
