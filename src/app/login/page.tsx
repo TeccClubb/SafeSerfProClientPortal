@@ -1,9 +1,10 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import { useState } from 'react';
 import { FormInput } from '@/components/ui/FormInput';
-// import { useLogin } from '@/hooks/useLogin';
-import { useLogin } from '@/lib/hooks/useLogin';
 
 type FormValues = {
   email: string;
@@ -17,16 +18,26 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const { login, loading, error } = useLogin();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const onSubmit = async (data: FormValues) => {
-    try {
-        
-      const response = await login(data);
-      console.log('Login successful:', response);
-      // TODO: Handle redirect or store token
-    } catch (err) {
-      console.error('Login failed');
+    setLoading(true);
+    setError('');
+
+    const res = await signIn('credentials', {
+      redirect: false,
+      email: data.email,
+      password: data.password,
+    });
+
+    setLoading(false);
+
+    if (res?.ok) {
+      router.push('/overview');
+    } else {
+      setError(res?.error || 'Login failed. Please try again.');
     }
   };
 
@@ -90,8 +101,10 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={loading}
-          className={`w-full py-2 rounded-md font-semibold text-white ${
-            loading ? 'bg-rose-300 cursor-not-allowed' : 'bg-rose-500 hover:bg-rose-600'
+          className={`w-full py-2 rounded-md font-semibold text-white transition-all ${
+            loading
+              ? 'bg-rose-300 cursor-not-allowed'
+              : 'bg-rose-500 hover:bg-rose-600'
           }`}
         >
           {loading ? 'Logging In...' : 'Log In'}

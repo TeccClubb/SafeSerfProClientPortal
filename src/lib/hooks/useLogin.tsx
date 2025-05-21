@@ -15,20 +15,14 @@ export function useLogin() {
     setLoading(true);
     setError(null);
     try {
-        const payload = {
-    email: data.email,
-    password: data.password,
-  };
-     
-        const response = await axios.post(`'https://seelvpn.tecclubb.com/api/login`, payload, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
-    console.log(response)
-    localStorage.setItem("access_token", response.data.access_token);
-      return response.data;
+      const response = await axios.post(`https://seelvpn.tecclubb.com/api/login`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+
+      return response.data; // Pass this to NextAuth via signIn
     } catch (err: any) {
       setError(err.response?.data?.message || 'Login failed');
       throw err;
@@ -36,6 +30,6 @@ export function useLogin() {
       setLoading(false);
     }
   };
-
+///////////////
   return { login, loading, error };
 }

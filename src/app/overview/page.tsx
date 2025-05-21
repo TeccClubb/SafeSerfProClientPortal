@@ -1,12 +1,14 @@
 
 
-
+"use client"
 import React from 'react';
 import StatsSection from '@/components/stateSection';
 import TableSection from '@/components/tableSection';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import Navbar_Below from '@/components/navBar/NavBar2';
-
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 const statsData = [
     { label: 'Tickets', value: 1, color: 'text-red-500 border-red-500 text-sm font-medium' },
     { label: 'Subscriptions', value: 0, color: 'text-green-500 border-green-500 text-sm font-medium' },
@@ -17,6 +19,21 @@ const statsData = [
 
 
 export default function Overview() {
+
+const { data: session, status } = useSession();
+const router = useRouter();
+useEffect(() => {
+    console.log(session)
+    console.log(status)
+    if (status === 'unauthenticated') {
+      router.push('/login');
+    }
+  }, [status, router]);
+
+  if (status === 'loading') {
+    return <div className="text-center mt-20">Checking session...</div>;
+  }
+    
     return (
         <div className="p-4 lg:px-20 bg-slate-50 min-h-screen lg:text-sm   text-gray-700 space-y-8">
 
