@@ -7,6 +7,22 @@ export default function TicketView() {
                 <h2 className="text-[15px] font-semibold text-gray-900 mb-5">Open a ticket</h2>
 
                 <div className="bg-white rounded-lg shadow border border-gray-100 p-6 md:p-9 mb-5">
+                    <div className="flex justify-end items-center mb-3">
+                        <div className="text-gray-500 text-sm flex items-center gap-1">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-4 w-4"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth={2}
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                            </svg>
+                            <span className="text-xs">Files</span>
+                        </div>
+
+                    </div>
                     {/* Top Section: Ticket Info + Reply */}
                     <div className="flex flex-col md:flex-row gap-5 mt-14">
                         {/* Ticket Info */}
@@ -38,15 +54,23 @@ export default function TicketView() {
                                     ></textarea>
 
                                     <div className="mb-4">
-                                        <label className="text-sm font-medium text-gray-800 mb-1 block">Attachments</label>
-                                        <div className="flex items-center gap-2 p-2 rounded">
-                                            <input
-                                                type="file"
-                                                className="border border-gray-300 rounded-md text-sm px-2 py-1 focus:outline-none"
-                                            />
-                                            <button className="text-sm px-3 py-1 border rounded bg-white">+</button>
+                                        <label className="text-sm font-bold text-gray-600 mb-1 block">Attachments</label>
+
+                                        <div className="flex flex-wrap md:flex-nowrap items-center gap-2 p-2">
+                                            <div className="flex w-full md:w-auto border border-gray-300 rounded-md overflow-hidden">
+                                                <input
+                                                    type="file"
+                                                    className="text-sm px-2 py-1 w-full md:w-auto focus:outline-none"
+                                                />
+                                                <button
+                                                    className="text-sm px-3 py-1 border-l border-gray-300 bg-white w-full md:w-auto"
+                                                >
+                                                    +
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
+
 
                                     {/* Sticky to bottom of parent */}
                                     <div className="bg-gray-100 p-4 rounded mt-auto -mx-5 -mb-5 px-5">
