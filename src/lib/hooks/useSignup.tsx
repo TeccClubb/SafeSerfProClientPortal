@@ -1,9 +1,10 @@
 // hooks/useSignup.ts
 import { useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 type SignupData = {
-  username: string;
+  name: string;
   email: string;
   password: string;
 };
@@ -16,10 +17,25 @@ export function useSignup() {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post('/api/signup', data);
-      return response.data; // Adjust this based on your backend response
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_REST_API_BASE_URL}/signup`,
+        data,
+        {
+          headers: {
+            Accept: 'application/json',
+          },
+        }
+      );
+
+      // ✅ Show success message from API
+      const message = response.data?.message+"!Please verify your email" || 'Signup successful!';
+      toast.success(message);
+
+      return response.data;
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Something went wrong');
+      const message = err.response?.data?.message || 'Something went wrong';
+      setError(message);
+      toast.error(message); // ✅ Optional: show toast on error too
       throw err;
     } finally {
       setLoading(false);
