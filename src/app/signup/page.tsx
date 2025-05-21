@@ -6,6 +6,7 @@ import { FormInput } from '@/components/ui/FormInput';
 import { useSignup } from '@/lib/hooks/useSignup';
 
 type FormValues = {
+  
   username: string;
   email: string;
   password: string;
@@ -22,9 +23,15 @@ export default function SignupForm() {
 
   const onSubmit = async (data: FormValues) => {
     try {
-      const response = await signup(data);
+      // Map `username` to `name` for API
+      const payload = {
+        name: data.username,
+        email: data.email,
+        password: data.password,
+      };
+      const response = await signup(payload);
       console.log('Signup success:', response);
-      // Redirect or show success message
+      // Optionally: Redirect or show a toast
     } catch (err) {
       console.error('Signup failed');
     }
@@ -34,11 +41,11 @@ export default function SignupForm() {
     <div className="min-h-screen flex items-center justify-center bg-slate-100">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-sm p-8 bg-white border-2 border-blue-900 rounded-lg shadow-md"
+        className="w-full max-w-sm p-8 bg-white border-2 border-gray-200 rounded-lg shadow-md"
       >
         <div className="flex justify-center mb-6">
           <img
-            src="/signup-logo.png"
+            src="/login-logo.png"
             alt="Logo"
             className="h-12 w-12 rotate-6"
           />
