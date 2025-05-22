@@ -1,8 +1,9 @@
 // app/api/auth/[...nextauth]/route.ts
+import { LOGIN_ROUTE } from '@/lib/utils/apiRoutes';
 import NextAuth, { SessionStrategy } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 // import { API_BASE_URL } from '@/lib/constrants';
-import { LOGIN_ROUTE } from '@/lib/constrants';
+// import { LOGIN_ROUTE } from '@/lib/constrants';
 
 const authOptions = {
   providers: [

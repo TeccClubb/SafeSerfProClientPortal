@@ -7,6 +7,8 @@ export const SIGNUP_ROUTE = `${API_BASE_URL}/signup`;
 export const LOGOUT_ROUTE = `${API_BASE_URL}/logout`;
 export const FORGOT_PASSWORD_ROUTE = `${API_BASE_URL}/forgot-password`;
 export const RESET_PASSWORD_ROUTE = `${API_BASE_URL}/reset-password`;
+export const GET_PLANS_ROUTE = API_BASE_URL + "/plans";
+
 
 // New: Email verification route builder
 export const getEmailVerificationRoute = (id: string, hash: string, expires: string, signature: string): string =>

@@ -10,6 +10,7 @@ import ContinueButton from "../subscriptionSection/ContinueButton";
 
 const Order = () => {
     const [showSummary, setShowSummary] = useState(true);
+    
     return (
         <div>
             <h2 className="text-lg font-semibold text-gray-600 mb-4">Modify subscription</h2>
