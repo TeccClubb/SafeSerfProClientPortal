@@ -37,9 +37,9 @@ export default function RootLayout({
         <div className="p-4 lg:px-20 py-3 bg-slate-50   lg:text-sm   text-gray-700 space-y-8">
 
         <Navbar_Below></Navbar_Below>
-        <ToastContainer></ToastContainer>
         </div>
         {children}
+        <ToastContainer></ToastContainer>
         </SessionWrapper>
       </body>
     </html>

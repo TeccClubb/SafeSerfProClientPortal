@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { FormInput } from '@/components/ui/FormInput';
+import { toast } from 'react-toastify';
+ 
 
 type FormValues = {
   email: string;
@@ -31,10 +33,11 @@ export default function LoginForm() {
       email: data.email,
       password: data.password,
     });
-
+console.log(res)
     setLoading(false);
 
     if (res?.ok) {
+      // toast.success(res.)
       router.push('/overview');
     } else {
       setError(res?.error || 'Login failed. Please try again.');

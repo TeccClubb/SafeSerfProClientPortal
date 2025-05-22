@@ -1,6 +1,8 @@
 // app/api/auth/[...nextauth]/route.ts
 import NextAuth, { SessionStrategy } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+// import { API_BASE_URL } from '@/lib/constrants';
+import { LOGIN_ROUTE } from '@/lib/constrants';
 
 const authOptions = {
   providers: [
@@ -11,7 +13,7 @@ const authOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        const res = await fetch('https://seelvpn.tecclubb.com/api/login', {
+        const res = await fetch(LOGIN_ROUTE, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

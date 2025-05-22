@@ -51,7 +51,7 @@ useEffect(() => {
                 highlightColumns={[0]}
             />
 
-            <TableSection
+            {/* <TableSection
                 title="Products"
                 actionLabel="+ Add Product"
                 actionLink="/addProduct" // <-- link to add product page
@@ -60,7 +60,7 @@ useEffect(() => {
                     ['#1', 'My super device', '', '', '2024-08-01 23:06:18']
                 ]}
                 highlightColumns={[0, 1]}
-            />
+            /> */}
 
             <TableSection
                 title="Support Tickets"
