@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { SIGNUP_ROUTE } from '../utils/apiRoutes';
 
 type SignupData = {
   name: string;
@@ -18,7 +19,7 @@ export function useSignup() {
     setError(null);
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_REST_API_BASE_URL}/signup`,
+        SIGNUP_ROUTE,
         data,
         {
           headers: {

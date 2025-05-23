@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { FormInput } from '@/components/ui/FormInput';
 // import { useSignup } from '@/hooks/useSignup';
 import { useSignup } from '@/lib/hooks/useSignup';
+import Link from "next/link";
 
 type FormValues = {
   
@@ -104,14 +105,21 @@ export default function SignupForm() {
         )}
 
         <button
-          type="submit"
-          disabled={loading}
-          className={`w-full py-2 rounded-md font-semibold text-white ${
-            loading ? 'bg-rose-300 cursor-not-allowed' : 'bg-rose-500 hover:bg-rose-600'
-          }`}
-        >
-          {loading ? 'Signing Up...' : 'Sign Up'}
-        </button>
+  type="submit"
+  disabled={loading}
+  className={`w-full py-2 rounded-md font-semibold text-white ${
+    loading ? "bg-rose-300 cursor-not-allowed" : "bg-rose-500 hover:bg-rose-600"
+  }`}
+>
+  {loading ? "Signing Up..." : "Sign Up"}
+</button>
+
+<p className="mt-4 text-sm text-center text-gray-600">
+  Already have an account?{" "}
+  <Link href="/login" className="text-rose-500 hover:underline font-medium">
+    Login
+  </Link>
+</p>
       </form>
     </div>
   );
