@@ -28,14 +28,17 @@ const PlanCard: React.FC<PlanCardProps> = ({
                 "relative hover:shadow-md"
             )}
         >
-            {isMostPopular && (
-                <div className="absolute top-2 right-2 px-3 py-1 rounded-full border border-blue-600 text-blue-600 text-xs font-bold bg-white z-10">
-                    Most Popular
-                </div>
-            )}
+
             <div className="flex justify-between items-start">
                 <div className="pt-4 pb-2">
-                    <h3 className="text-slate-800 text-lg mt-6 font-bold opacity-70">{plan.name}</h3>
+                    {isMostPopular && (
+                        <div className=" px-4 py-2.5  mt-5  rounded-[70px]  outline-1 outline-offset-[-1px] outline-blue-600    text-black  text-xs font-bold bg-white z-10">
+                            Most Popular
+                        </div>
+                    )}
+                    <h3 className={`text-slate-800 text-lg font-bold opacity-70 ${isMostPopular ? 'mt-6' : 'mt-12'}`}>
+                        {plan.name}
+                    </h3>
                     <p className="text-2xl font-bold text-slate-900 mt-2">
                         {plan.original_price}
                         <span className="text-sm font-normal">/month</span>

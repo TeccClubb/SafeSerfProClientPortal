@@ -6,9 +6,15 @@ import ProductList from "@/components/product/ProductList";
 import Summary from "@/components/product/Summary";
 import AddProductButton from "@/components/product/AddProductButton";
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Image from "next/image";
+import { RootState } from "@/store/store";
+
 import { OrderSummaryCard } from "@/components/OrderSummaryCard";
+ 
+import { notFound, useSearchParams } from "next/navigation";
+import CheckoutForm from "@/components/payment/checkoutForm";
+import { useSelector } from "react-redux";
 type OrderSummaryCardProps = {
     total: number;
     vat: number;
@@ -23,9 +29,27 @@ type OrderSummaryCardProps = {
 };
 
 
-export default function ProductConfigurationCheckOut() {
+export  function ProductConfigurationCheckOut() {
     const [showSummary, setShowSummary] = useState(true);
+ const searchParams = useSearchParams();
+  const planId = searchParams.get('planId');
+  const plans = useSelector((state: RootState) => state.plan.plans);
 
+  // If no planId is provided
+  if (!planId) {
+    return notFound(); // This shows the 404 page
+  }
+
+  // Convert planId to number for comparison
+  const numericPlanId = parseInt(planId, 10);
+
+  // Find the matching plan
+  const plan = plans.find((p) => p.id === numericPlanId);
+
+  // If no matching plan is found
+  if (!plan) {
+    return notFound(); // Also show 404 if plan not found
+  }
     // Simulating dynamic DB data
     const vpnData = [
         {
@@ -121,7 +145,12 @@ export default function ProductConfigurationCheckOut() {
                 {/* Left Box */}
                 <div className="w-full lg:w-1/2 bg-white p-4 shadow rounded">
                     <h2 className="text-lg font-semibold mb-2">Payment section</h2>
-                    <p>This is the left box content.</p>
+                    <CheckoutForm
+                        planId={plan.id}
+                        amount={+(plan.original_price ?? 0) * 100}
+                        // billingAddress={billingAddress}
+                        className="w-full lg:w-2/3"
+                    />
                 </div>
 
                 {/* Right Box */}
@@ -138,9 +167,9 @@ export default function ProductConfigurationCheckOut() {
                         monthsExtra="3 months"
                         couponCode="SAVE60"
                         addons={[
-                            { name: "Extra Security", added: true ,image:"/products/dosprotection.png"},
-                            { name: "Premium Support", added: false,image:"/products/extradevice.png" },
-                            { name: "Cloud Backup", added: false,image:"/products/ipaddress.png" },
+                            { name: "Extra Security", added: true, image: "/products/dosprotection.png" },
+                            { name: "Premium Support", added: false, image: "/products/extradevice.png" },
+                            { name: "Cloud Backup", added: false, image: "/products/ipaddress.png" },
                         ]}
                         image="/products/dosprotection.png"
                         onApplyCoupon={(code) => console.log("Applying coupon:", code)}
@@ -153,3 +182,13 @@ export default function ProductConfigurationCheckOut() {
         </div>
     );
 }
+
+
+const Page = () => (
+  <Suspense>
+    <ProductConfigurationCheckOut />
+     
+  </Suspense>
+);
+
+export default Page;

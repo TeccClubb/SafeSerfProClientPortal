@@ -13,3 +13,8 @@ export const GET_PLANS_ROUTE = API_BASE_URL + "/plans";
 // New: Email verification route builder
 export const getEmailVerificationRoute = (id: string, hash: string, expires: string, signature: string): string =>
   `${API_BASE_URL}/email/verify/${id}/${hash}?expires=${expires}&signature=${signature}`;
+
+
+export const STRIPE_SECRET_KEY = process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY;
+
+export const STRIPE_PUBLISHABLE_KEY=process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;

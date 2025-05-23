@@ -22,12 +22,12 @@ const Order = () => {
                 {error && <p className="text-red-500">Error: {error}</p>}
 
                 {!loading && !error && (
-                    <div className="grid md:grid-cols-3 gap-6">
+                    <div className="grid md:grid-cols-3 lg:mx-10 gap-10">
                         {plans.map((plan, index) => (
                             <PlanCard
                                 key={plan.id || index}
                                 plan={plan}
-
+                                isMostPopular={index === 1 || index === 2} // set to true for second and third cards
                                 selected={selectedPlanIndex === index}
                                 onSelect={() => setSelectedPlanIndex(index)}
                             />
@@ -42,16 +42,15 @@ const Order = () => {
                             className="flex items-center justify-between cursor-pointer mb-2"
                             onClick={() => setShowSummary((prev) => !prev)}
                         >
-                            <h3 className="text-2xl text-slate-700 font-semibold">Checkout Summary</h3>
+                            <h3 className="text-2xl text-slate-900 font-semibold">Checkout Summary</h3>
                             <ChevronDown
-                                className={`transition-transform duration-300 ${showSummary ? "rotate-180" : ""}`}
+                                className={`transition-transform text-black duration-300 ${showSummary ? "rotate-180" : ""}`}
                             />
                         </div>
 
                         {showSummary && selectedPlan && (
                             <>
                                 <Summary plan={selectedPlan} />
-                                <ContinueButton />
                             </>
                         )}
                     </div>

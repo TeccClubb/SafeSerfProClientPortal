@@ -5,6 +5,7 @@ import Navbar from "@/components/navBar/Navbar";
 import Navbar_Below from "@/components/navBar/NavBar2";
 import SessionWrapper from "@/components/SessionWrapper";
 import { ToastContainer } from "react-toastify";
+import ReduxProvider from "@/components/ReduxProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,18 +30,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        
+
       >
+        <ReduxProvider>
+
         <SessionWrapper>
 
-        <Navbar></Navbar>
-        <div className="p-4 lg:px-20 py-3 bg-slate-50   lg:text-sm   text-gray-700 space-y-8">
+          <Navbar></Navbar>
+          <div className="p-4 lg:px-20 py-3 bg-slate-50   lg:text-sm   text-gray-700 space-y-8">
 
-        <Navbar_Below></Navbar_Below>
-        </div>
-        {children}
-        <ToastContainer></ToastContainer>
+            <Navbar_Below></Navbar_Below>
+          </div>
+          {children}
+          <ToastContainer></ToastContainer>
         </SessionWrapper>
+        </ReduxProvider>
       </body>
     </html>
   );
