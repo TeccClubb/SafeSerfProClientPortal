@@ -6,6 +6,7 @@ import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { FormInput } from '@/components/ui/FormInput';
 import { toast } from 'react-toastify';
+import Link from 'next/link';
  
 
 type FormValues = {
@@ -102,16 +103,25 @@ console.log(res)
         )}
 
         <button
-          type="submit"
-          disabled={loading}
-          className={`w-full py-2 rounded-md font-semibold text-white transition-all ${
-            loading
-              ? 'bg-rose-300 cursor-not-allowed'
-              : 'bg-rose-500 hover:bg-rose-600'
-          }`}
-        >
-          {loading ? 'Logging In...' : 'Log In'}
-        </button>
+  type="submit"
+  disabled={loading}
+  className={`w-full py-2 rounded-md font-semibold text-white transition-all ${
+    loading
+      ? "bg-rose-300 cursor-not-allowed"
+      : "bg-rose-500 hover:bg-rose-600"
+  }`}
+>
+  {loading ? "Logging In..." : "Log In"}
+</button>
+
+<div className="flex justify-between items-center mt-3 text-sm text-gray-600">
+  <Link href="/forgot-password" className="hover:underline text-rose-500 font-medium">
+    Forgot Password?
+  </Link>
+  <Link href="/signup" className="hover:underline text-rose-500 font-medium">
+    Sign Up
+  </Link>
+</div>
       </form>
     </div>
   );

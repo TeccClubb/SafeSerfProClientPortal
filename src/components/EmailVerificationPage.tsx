@@ -41,7 +41,7 @@ const EmailVerificationPage: React.FC = () => {
         });
 
         if (res.data.status) {
-          toast.success("Email verified successfully!");
+          toast.success(res.data.message);
           setSuccessMessage(res.data.message);
         } else {
           toast.error("Email verification failed.");
