@@ -3,8 +3,30 @@ import React, { useEffect } from 'react';
 import StatsSection from '@/components/stateSection';
 import TableSection from '@/components/tableSection';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import useActivePlan from '@/lib/hooks/useActiveplane';
+import { useTicketList } from '@/lib/hooks/useTicket';
+import { useRouter } from 'next/navigation';
+type Ticket = {
+  id: number;
+  subject: string;
+  status: string;
+  priority: string;
+  department: string;
+  created_at: string;
+  messages: {
+    id: number;
+    user_id: number;
+    is_admin: number;
+    message: string;
+    created_at: string;
+    attachments: {
+      url: string;
+      size: number;
+      mime_type: string;
+    }[];
+  }[];
+};
 
 const statsData = [
   { label: 'Tickets', value: 1, color: 'text-red-500 border-red-500 text-sm font-medium' },
@@ -15,16 +37,22 @@ const statsData = [
 ];
 
 export default function Overview() {
+
   const { data: session, status } = useSession();
   const router = useRouter();
-  const { activePlan, loading: planLoading, error: planError } = useActivePlan();
+  const token = (session?.user as any)?.access_token;
 
+  const { activePlan, loading: planLoading, error: planError } = useActivePlan();
+  const { tickets, loading: ticketsLoading } = useTicketList(token);
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/login');
     }
-  }, [status, router]);
 
+  }, [status, router]);
+  useEffect(() => {
+    console.log("Fetched tickets in component:", tickets);
+  }, [tickets]);
   if (status === 'loading') {
     return <div className="text-center mt-20">Checking session...</div>;
   }
@@ -41,19 +69,20 @@ export default function Overview() {
         title="Subscriptions"
         actionLabel="+ Upgrade"
         actionLink="/order"
-        columns={['Subscription', 'Type', 'Connections', 'Paid', 'Next billing date', 'Purchase date']}
+        columns={['Subscription', 'Type', 'Paid', 'Next billing date', 'Purchase date']}
         data={
-          activePlan?.plan
+          activePlan
             ? [[
-                activePlan.plan.name,
-                activePlan.plan.billing_cycle,
-                `${activePlan.plan.connections}`,
-                `$${activePlan.amount_paid}`,
-                new Date(activePlan.end_date).toLocaleDateString(),
-                new Date(activePlan.start_date).toLocaleString()
-              ]]
+              activePlan.plan.name,
+              activePlan.plan.duration_unit,
+              // Connections not available in your current API
+              `$${activePlan.amount_paid}`,
+              new Date(activePlan.end_date).toLocaleDateString(),
+              new Date(activePlan.start_date).toLocaleString()
+            ]]
             : []
         }
+
         highlightColumns={[0]}
       />
 
@@ -64,13 +93,29 @@ export default function Overview() {
         searchable
         pagination
         columns={['Ticket #', 'Subject', 'Contact', 'Department', 'Project', 'Service', 'Priority', 'Status', 'Last Reply']}
-        data={[
-          ['#1', 'Issue with production2', 'Test user Super', 'Support', '', '', 'Medium',
-            <span className="px-2.5 py-1 text-white bg-green-500 rounded-lg text-xs font-medium">Open</span>,
-            '2024-08-01 23:06:18']
-        ]}
+        data={
+          tickets?.map((ticket, index) => [
+            `#${ticket.id || index + 1}`,
+            ticket.subject || 'No Subject',
+            ticket.contact || 'N/A',
+            ticket.department || 'N/A',
+            // ticket.project || 'N/A',
+            ticket.service || 'N/A',
+            ticket.priority || 'N/A',
+            <button
+              onClick={() => window.location.href = `/ticketView?id=${ticket.id}`}
+              className={`px-2.5 py-1 rounded-lg text-xs font-medium text-white hover:opacity-90 transition ${ticket.status === 'open' ? 'bg-green-500' : 'bg-gray-400'
+                }`}
+            >
+              {ticket.status}
+            </button>,
+
+            ticket.last_reply ? new Date(ticket.last_reply).toLocaleString() : 'N/A',
+          ]) || []
+        }
         highlightColumns={[0, 1]}
       />
+
     </div>
   );
 }

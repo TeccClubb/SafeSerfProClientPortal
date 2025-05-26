@@ -1,15 +1,24 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
+type PlanType = {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  original_price: string;
+  discount_price: string;
+  duration: number;
+  duration_unit: string;
+};
+
 type ActivePlanType = {
-  plan?: {
-    name: string;
-    billing_cycle: string;
-    connections: number;
-  };
-  amount_paid: number;
-  end_date: string;
+  id: number;
+  amount_paid: string;
   start_date: string;
+  end_date: string;
+  plan: PlanType;
+  status: string;
 };
 
 const useActivePlan = () => {
@@ -27,6 +36,7 @@ const useActivePlan = () => {
         const token = (session?.user as any)?.access_token;
         if (!token) {
           setError("Token not available");
+          setLoading(false);
           return;
         }
 
@@ -41,8 +51,13 @@ const useActivePlan = () => {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
 
-        const result = await response.json();
-        setActivePlan(result);
+        const result: { status: boolean; purchase: ActivePlanType } = await response.json();
+
+        if (result.status && result.purchase) {
+          setActivePlan(result.purchase);
+        } else {
+          setError("No active subscription found");
+        }
       } catch (err: any) {
         setError(err.message || "An error occurred");
       } finally {

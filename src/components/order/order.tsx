@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { usePlans } from "@/lib/hooks/usePlans";
 import Summary from "../product/Summary";
 import ContinueButton from "../subscriptionSection/ContinueButton";
 import PlanCard from "../plans/PlanCard";
+import { setSelectedPlan } from "@/store/planSlice";
+import { useDispatch } from "react-redux";
 
 const Order = () => {
     const [showSummary, setShowSummary] = useState(true);
@@ -13,6 +15,14 @@ const Order = () => {
     const { plans, loading, error } = usePlans();
 
     const selectedPlan = selectedPlanIndex !== null ? plans[selectedPlanIndex] : null;
+
+const dispatch = useDispatch();
+
+      useEffect(() => {
+        if (selectedPlan) {
+            dispatch(setSelectedPlan(selectedPlan));
+        }
+    }, [selectedPlan, dispatch]);
 
     return (
         <div>

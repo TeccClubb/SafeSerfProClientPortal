@@ -3,6 +3,7 @@
 import React from "react";
 import { cn } from "@/lib/utils"; // Utility for conditional classNames
 import { Plan } from "@/lib/hooks/usePlans";
+import Image from "next/image";
 
 interface PlanCardProps {
     plan: Plan;
@@ -17,7 +18,8 @@ const PlanCard: React.FC<PlanCardProps> = ({
     onSelect,
     isMostPopular = false,
 }) => {
-    const enabledFeatures = plan.features.filter((feature) => feature.enabled === 1);
+    // Use all features, not just enabled ones
+    const allFeatures = plan.features;
 
     return (
         <div
@@ -28,11 +30,10 @@ const PlanCard: React.FC<PlanCardProps> = ({
                 "relative hover:shadow-md"
             )}
         >
-
             <div className="flex justify-between items-start">
                 <div className="pt-4 pb-2">
                     {isMostPopular && (
-                        <div className=" px-4 py-2.5  mt-5  rounded-[70px]  outline-1 outline-offset-[-1px] outline-blue-600    text-black  text-xs font-bold bg-white z-10">
+                        <div className=" px-4 py-2.5  mt-5  rounded-[70px]  outline-1 outline-offset-[-1px] outline-blue-600 text-black text-xs font-bold bg-white z-10">
                             Most Popular
                         </div>
                     )}
@@ -44,13 +45,28 @@ const PlanCard: React.FC<PlanCardProps> = ({
                         <span className="text-sm font-normal">/month</span>
                     </p>
                     <ul className="mt-4 text-sm text-gray-600 space-y-1">
-                        {enabledFeatures.map((feature) => (
-                            <li key={feature.id}>
-                                <span className="text-green-600 mr-1">✔</span>
-                                {feature.title}
+                        {allFeatures.map((feature: any) => (
+                            // import Image from "next/image";
+
+                            <li key={feature.id} className="flex items-center gap-1">
+                                <span className={feature.enabled === 1 ? "text-green-600" : "text-red-500"}>
+                                    <Image
+                                        src={feature.enabled === 1 ? "/products/tickIcon.png" : "/products/crossIcon.png"}
+                                        // src={isEnabled ? "" : "/"}
+                                        alt={feature.enabled === 1 ? "Tick icon" : "Cross icon"}
+                                        width={16}
+                                        height={16}
+                                        unoptimized={true} // optional, if you want to skip image optimization
+                                    />
+                                </span>
+                                <span className={feature.enabled === 1 ? "" : "line-through"}>
+                                    {feature.title || feature.label}
+                                </span>
                             </li>
+
                         ))}
                     </ul>
+
                     <p className="text-xs mt-4 text-gray-500">{plan.description}</p>
                 </div>
                 <input

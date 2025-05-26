@@ -3,10 +3,12 @@ import { Plan } from '@/lib/hooks/usePlans';
 
 interface PlanState {
   plans: Plan[];
+  selectedPlan: Plan | null;
 }
 
 const initialState: PlanState = {
   plans: [],
+  selectedPlan: null,
 };
 
 const planSlice = createSlice({
@@ -16,8 +18,11 @@ const planSlice = createSlice({
     setPlanss: (state, action: PayloadAction<Plan[]>) => {
       state.plans = action.payload;
     },
+    setSelectedPlan: (state, action: PayloadAction<Plan>) => {
+      state.selectedPlan = action.payload;
+    },
   },
 });
 
-export const { setPlanss } = planSlice.actions;
+export const { setPlanss, setSelectedPlan } = planSlice.actions;
 export default planSlice.reducer;

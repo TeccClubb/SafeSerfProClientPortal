@@ -19,6 +19,20 @@ import { toast } from "react-toastify";
 import { API_BASE_URL } from "@/lib/utils/apiRoutes";
 import { getSession, useSession } from "next-auth/react";
 
+// Extend the session user type to include access_token
+ 
+
+declare module "next-auth" {
+  interface Session {
+    user?: {
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+      access_token?: string | null;
+    };
+  }
+}
+
 const PaymentProcessingPage = () => {
   //   const dispatch = useDispatch();
   //   const notify = useNotifications();

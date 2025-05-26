@@ -5,6 +5,7 @@ import ContinueButton from "../subscriptionSection/ContinueButton";
 
 
 
+
 interface SummaryProps {
   plan: Plan;
 
@@ -18,7 +19,11 @@ const handleTotalPrice = (plan: Plan) => {
 };
 
 
+
 const Summary: FC<SummaryProps> = ({ plan }) => {
+
+
+
   return (
     <div className="pt-4 mt-4 text-sm text-gray-700 space-y-1">
       <div className="leading-relaxed">
