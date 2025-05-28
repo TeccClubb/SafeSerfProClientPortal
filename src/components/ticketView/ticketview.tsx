@@ -1,6 +1,6 @@
 "use client";
 import useTicketDetails from "@/lib/hooks/useTicketDetails";
-import React from "react";
+import React, { use, useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -14,18 +14,23 @@ export default function TicketView() {
     const ticketId = ticketIdParam ? Number(ticketIdParam) : null;
     const { data, loading, error } = useTicketDetails(ticketId as number);
     const { closeTicket, Ticketloading, ticketClose, ticketError } = useTicketClose();
-
+    const [UserMessages, setUserMessages] = useState<any[]>([]);
 
     const [message, setMessage] = useState("");
     const [file, setFile] = useState<File | null>(null);
 
-
+    useEffect(() => {
+        if (data && data.messages) {
+            setUserMessages(data.messages);
+        }
+    }
+        , [data]);
 
     const { data: session, status } = useSession(); // add `status` to check if session is loading
     if (loading) return <div className="p-6">Loading ticket...</div>;
     if (error) return <div className="p-6 text-red-500">Error: {error}</div>;
     if (!data) return null;
-const router=useRouter();
+    const router = useRouter();
 
 
     const handleReplySubmit = async () => {
@@ -51,6 +56,8 @@ const router=useRouter();
             );
 
             console.log("Reply submitted:", response.data);
+            setUserMessages(response.data.ticket.messages);
+
             // Optional: Refresh messages or clear fields
             setMessage("");
             setFile(null);
@@ -110,12 +117,12 @@ const router=useRouter();
                                         className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                                         onClick={() => closeTicket(data.id)}
                                         disabled={Ticketloading}
-                                        
+
                                     >
                                         {Ticketloading ? "Closing..." : "Close Ticket"}
                                     </button>
                                 ) : (
-                                   
+
                                     ""
                                 )
                             }
@@ -183,7 +190,7 @@ const router=useRouter();
                                 <h3 className="font-bold text-gray-800 text-sm">Ticket Chat</h3>
                             </div>
                             <div className="bg-yellow-50 rounded-b-md px-6 py-4 space-y-4 max-h-[60vh] overflow-y-auto">
-                                {data.messages?.map((msg: any, index: number) => {
+                                {UserMessages?.map((msg: any, index: number) => {
                                     const isAdmin = msg.is_admin === 1;
                                     return (
                                         <div
@@ -202,24 +209,34 @@ const router=useRouter();
 
                                                 {/* Attachments */}
                                                 {msg.attachments && msg.attachments.length > 0 && (
-                                                    <div className="mt-2 text-sm text-blue-600">
-                                                        Attachments:
-                                                        <ul className="list-disc ml-5">
-                                                            {msg.attachments.map((file: any, i: number) => (
-                                                                <li key={i}>
-                                                                    <a
-                                                                        href={file.url}
-                                                                        target="_blank"
-                                                                        rel="noopener noreferrer"
-                                                                        className="underline text-blue-500"
-                                                                    >
-                                                                        {file.name}
-                                                                    </a>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
+                                                    <div className="mt-2">
+                                                        {msg.attachments.map((att: any, i: number) => {
+                                                            const isImage = att.mime_type?.startsWith("image/");
+                                                            return (
+                                                                <div key={i} className="mt-1">
+                                                                    {isImage ? (
+                                                                        <img
+                                                                            src={att.url}
+                                                                            alt={`attachment-${i}`}
+                                                                            className="max-w-[100px] max-h-70 rounded-lg border border-gray-300"
+                                                                        />
+                                                                    ) : (
+                                                                        <a
+                                                                            href={att.url}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="text-blue-500 underline text-sm"
+                                                                        >
+                                                                            {att.name || `Attachment ${i + 1}`}
+                                                                        </a>
+                                                                    )}
+                                                                </div>
+                                                            );
+                                                        })}
                                                     </div>
                                                 )}
+
+
                                             </div>
                                         </div>
                                     );

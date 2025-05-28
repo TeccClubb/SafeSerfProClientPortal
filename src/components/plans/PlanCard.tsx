@@ -57,6 +57,7 @@ const PlanCard: React.FC<PlanCardProps> = ({
                                         width={16}
                                         height={16}
                                         unoptimized={true} // optional, if you want to skip image optimization
+                                        className="me-3"
                                     />
                                 </span>
                                 <span className={feature.enabled === 1 ? "" : "line-through"}>

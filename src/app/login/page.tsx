@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { FormInput } from '@/components/ui/FormInput';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
+import { HOME_PAGE_PATH } from '@/lib/pathname';
  
 
 type FormValues = {
@@ -39,7 +40,8 @@ console.log(res)
 
     if (res?.ok) {
       // toast.success(res.)
-      router.push('/overview');
+      router.push(HOME_PAGE_PATH);
+      toast.success('Login successful!');
     } else {
       setError(res?.error || 'Login failed. Please try again.');
     }

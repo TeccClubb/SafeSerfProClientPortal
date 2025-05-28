@@ -2,34 +2,27 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { API_BASE_URL } from "../utils/apiRoutes";
 
-type PlanType = {
-  id: number;
-  name: string;
-  slug: string;
-  description: string;
-  original_price: string;
-  discount_price: string;
-  duration: number;
-  duration_unit: string;
+// Define the type of the user stats returned by the API
+type UserStatsType = {
+  purchases: number;
+  servers: number;
+  tickets: number;
 };
 
-type ActivePlanType = {
-  id: number;
-  amount_paid: string;
-  start_date: string;
-  end_date: string;
-  plan: PlanType;
-  status: string;
+// Define the expected structure of the API response
+type ApiResponse = {
+  status: boolean;
+  stats: UserStatsType;
 };
 
-const useActivePlan = () => {
+const useUserStats = () => {
   const { data: session } = useSession();
-  const [activePlan, setActivePlan] = useState<ActivePlanType | null>(null);
+  const [userStats, setUserStats] = useState<UserStatsType | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchActivePlan = async () => {
+    const fetchUserStats = async () => {
       try {
         setLoading(true);
         setError(null);
@@ -41,23 +34,23 @@ const useActivePlan = () => {
           return;
         }
 
-        const response = await fetch(`${API_BASE_URL}/purchase/active`, {
+        const response = await fetch(`${API_BASE_URL}/user/stats`, {
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
-
+console.log(response)
         if (!response.ok) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
 
-        const result: { status: boolean; purchase: ActivePlanType } = await response.json();
+        const result: ApiResponse = await response.json();
 
-        if (result.status && result.purchase) {
-          setActivePlan(result.purchase);
+        if (result.status && result.stats) {
+          setUserStats(result.stats);
         } else {
-          setError("No active subscription found");
+          setError("Failed to retrieve user stats");
         }
       } catch (err: any) {
         setError(err.message || "An error occurred");
@@ -67,11 +60,12 @@ const useActivePlan = () => {
     };
 
     if (session) {
-      fetchActivePlan();
+      fetchUserStats();
     }
   }, [session]);
 
-  return { activePlan, loading, error };
+  return { userStats, loading, error };
 };
 
-export default useActivePlan;
+// export default useUserStats;
+export default useUserStats;

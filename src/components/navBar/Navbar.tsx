@@ -5,15 +5,20 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import { signOut } from "next-auth/react";
+import { usePathname } from 'next/navigation';
+import { HOME_PAGE_PATH, PLANS_PAGE_PATH } from '@/lib/pathname';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  
+  const pathname = usePathname();
+
+  const navLinkClass = (href: string) =>
+    `${pathname === href ? 'text-black font-semibold' : 'text-gray-600'} hover:text-black`;
 
   return (
-    <nav className="w-full  bg-white border-b border-gray-200  py-4">
-      <div className="flex items-center justify-end  lg:px-20 space-x-4  mx-auto max-w-screen-xl">
-        {/* Mobile toggle button only visible on small screens */}
+    <nav className="w-full bg-white border-b border-gray-200 py-4">
+      <div className="flex items-center justify-end lg:px-20 space-x-4 mx-auto max-w-screen-xl">
+        {/* Mobile toggle button */}
         <button
           className="md:hidden text-gray-600 focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
@@ -22,23 +27,18 @@ const Navbar = () => {
         </button>
 
         {/* Desktop menu */}
-        <div className="hidden md:flex items-center space-x-6 text-sm text-gray-600">
-          <Link href="/overview" className="hover:text-black">Overview</Link>
-          <Link href="/subscription" className="hover:text-black">Subscriptions</Link>
-          {/* <Link   className="hover:text-black">logout</Link> */}
-          <Link href="/product" className="hover:text-black">Products</Link>
-          <Link href="/knowledge-base" className="hover:text-black">Knowledge Base</Link>
-          <Link href="/referFriend" className="hover:text-black">Refer a friend</Link>
+        <div className="hidden md:flex items-center space-x-6 text-sm">
+          <Link href={HOME_PAGE_PATH} className={navLinkClass(HOME_PAGE_PATH)}>Overview</Link>
+          <Link href="/subscription" className={navLinkClass("/subscription")}>Subscriptions</Link>
+          <Link href={PLANS_PAGE_PATH} className={navLinkClass("/plans")}>Plans</Link>
+          <Link href="/knowledge-base" className={navLinkClass("/knowledge-base")}>Knowledge Base</Link>
+          <Link href="/referFriend" className={navLinkClass("/referFriend")}>Refer a friend</Link>
           <Link
             href="/support"
-            className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-md font-medium"
+            className={`${pathname === '/support'
+              ? 'bg-gray-300 text-black font-semibold'
+              : 'bg-gray-100 text-gray-800'} hover:bg-gray-200 px-3 py-1 rounded-md font-medium`}
           >
-            <button
-  onClick={() => signOut()}
-  className="hover:text-black"
->
-  Logout
-</button>
             Support
           </Link>
           <div className="w-6 h-6 rounded-full overflow-hidden">
@@ -50,20 +50,28 @@ const Navbar = () => {
               className="object-cover"
             />
           </div>
+          <button
+            onClick={() => signOut()}
+            className="hover:text-black text-gray-600"
+          >
+            Logout
+          </button>
         </div>
       </div>
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden mt-4 flex flex-col space-y-4 ml-6  text-sm text-gray-600">
-          <Link href="/overview" className="hover:text-black">Overview</Link>
-          <Link href="/subscription" className="hover:text-black">Subscriptions</Link>
-          <Link href="/product" className="hover:text-black">Products</Link>
-          <Link href="/knowledge-base" className="hover:text-black">Knowledge Base</Link>
-          <Link href="/referFriend" className="hover:text-black">Refer a friend</Link>
+        <div className="md:hidden mt-4 flex flex-col space-y-4 ml-6 text-sm">
+          <Link href={HOME_PAGE_PATH} className={navLinkClass("/")}>Overview</Link>
+          <Link href="/subscription" className={navLinkClass("/subscription")}>Subscriptions</Link>
+          <Link href={PLANS_PAGE_PATH} className={navLinkClass("/plans")}>Plans</Link>
+          <Link href="/knowledge-base" className={navLinkClass("/knowledge-base")}>Knowledge Base</Link>
+          <Link href="/referFriend" className={navLinkClass("/referFriend")}>Refer a friend</Link>
           <Link
             href="/support"
-            className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-md font-medium w-fit"
+            className={`${pathname === '/support'
+              ? 'bg-gray-300 text-black font-semibold'
+              : 'bg-gray-100 text-gray-800'} hover:bg-gray-200 px-3 py-1 rounded-md font-medium w-fit`}
           >
             Support
           </Link>

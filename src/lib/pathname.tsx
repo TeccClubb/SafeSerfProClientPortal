@@ -1,8 +1,10 @@
 export const HOME_PAGE_PATH = "/";
 
-export const OVERVIEW_PAGE_PATH="/overview";
+export const OVERVIEW_PAGE_PATH="/";
 export const CREATE_TICKET_PAGE_PATH="/createTicket";
 export const DEVICES_PAGE_PATH="/devices";
+export const PLANS_PAGE_PATH="/plans";
+// export const CREATE_TICKET_PAGE_PATH="/createTicket";
 
 
 // export const BILLING_DETAILS_PAGE_PATH =

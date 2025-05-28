@@ -32,7 +32,7 @@ export default function Page() {
 
                     {showSummary && (
                         <>
-                            <Summary />
+                            {/* <Summary /> */}
                             <AddProductButton />
                         </>
                     )}

@@ -12,10 +12,18 @@ export interface Ticket {
     id: number;
     subject: string;
     contact: string;
+    messages: {
+        id: number;
+        user_id: number;
+        created_at: string;
+        is_admin: number;
+        message: string;
+    }[];
     department: string;
     service?: string; // <-- Add this
     priority: string;
     status: string;
+    porject?: string;
     last_reply: string;
 }
 
