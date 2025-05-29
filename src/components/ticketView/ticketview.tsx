@@ -1,6 +1,6 @@
 "use client";
 import useTicketDetails from "@/lib/hooks/useTicketDetails";
-import React, { use, useEffect } from "react";
+import React, { Suspense, use, useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -8,7 +8,7 @@ import { API_BASE_URL } from "@/lib/utils/apiRoutes";
 import { useRouter, useSearchParams } from 'next/navigation';
 import useTicketClose from "@/lib/hooks/useTicketClose";
 
-export default function TicketView() {
+export  function TicketViews() {
     const searchParams = useSearchParams();
     const ticketIdParam = searchParams.get('id'); // You can pass this as a prop instead
     const ticketId = ticketIdParam ? Number(ticketIdParam) : null;
@@ -75,17 +75,17 @@ export default function TicketView() {
                 {/* Top Info Section */}
                 <div className="flex justify-end items-center mb-3">
                     <div className="text-gray-500 text-sm flex items-center gap-1">
-                        <svg
+                        {/* <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-4 w-4"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
                             strokeWidth={2}
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                        </svg>
-                        <span className="text-xs">Files</span>
+                        > */}
+                            {/* <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                        </svg> */}
+                        {/* <span className="text-xs">Files</span> */}
                     </div>
                 </div>
 
@@ -252,4 +252,13 @@ export default function TicketView() {
             </div>
         </div>
     );
+}
+
+export default function TicketView(){
+     return <div>
+        <Suspense>
+            <TicketViews />
+        </Suspense>
+     </div>
+
 }

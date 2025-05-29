@@ -16,7 +16,7 @@ const Navbar = () => {
     `${pathname === href ? 'text-black font-semibold' : 'text-gray-600'} hover:text-black`;
 
   return (
-    <nav className="w-full bg-white border-b border-gray-200 py-4">
+    <nav className="w-full fixed bg-white border-b border-gray-200 py-4 z-50">
       <div className="flex items-center justify-end lg:px-20 space-x-4 mx-auto max-w-screen-xl">
         {/* Mobile toggle button */}
         <button
