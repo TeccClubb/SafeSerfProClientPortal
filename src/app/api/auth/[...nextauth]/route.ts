@@ -12,14 +12,16 @@ const authOptions = {
       credentials: {
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
+        device_id: { label: 'device_id', type: 'text', optional: true }, // Optional device ID
       },
       async authorize(credentials) {
-        const res = await fetch(LOGIN_ROUTE, {
+        const res = await fetch("https://safesurf.tecclubb.com/api/login", {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email: credentials?.email,
             password: credentials?.password,
+            device_id: credentials?.device_id || '', // Optional device ID
           }),
         });
 

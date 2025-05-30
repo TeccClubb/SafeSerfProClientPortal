@@ -8,6 +8,7 @@ import { FormInput } from '@/components/ui/FormInput';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
 import { HOME_PAGE_PATH } from '@/lib/pathname';
+import { getOrCreateDeviceId } from '@/components/deviceId';
  
 
 type FormValues = {
@@ -29,11 +30,12 @@ export default function LoginForm() {
   const onSubmit = async (data: FormValues) => {
     setLoading(true);
     setError('');
-
+ const deviceId = getOrCreateDeviceId();
     const res = await signIn('credentials', {
       redirect: false,
       email: data.email,
       password: data.password,
+      device_id: deviceId, // Pass the device ID to the signIn function
     });
 console.log(res)
     setLoading(false);
