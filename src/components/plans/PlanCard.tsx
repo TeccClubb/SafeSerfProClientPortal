@@ -37,7 +37,7 @@ const PlanCard: React.FC<PlanCardProps> = ({
                             Most Popular
                         </div>
                     )}
-                    <h3 className={`text-slate-800 text-lg font-bold opacity-70 ${isMostPopular ? 'mt-6' : 'mt-12'}`}>
+                    <h3 className={`text-slate-800 text-lg font-bold opacity-70 ${isMostPopular ? 'mt-6' : 'mt-20'}`}>
                         {plan.name}
                     </h3>
                     <p className="text-2xl font-bold text-slate-900 mt-2">

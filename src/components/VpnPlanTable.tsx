@@ -33,7 +33,7 @@ const VpnPlanTable: React.FC<VpnPlanTableProps> = ({
                 </th>
               ))}
               {showRemoveBtn && (
-                <th className="px-6 py-3 font-semibold text-gray-700 whitespace-nowrap">Action</th>
+                <th className="px-6 py-3  font-semibold text-gray-700 whitespace-nowrap">Action</th>
               )}
             </tr>
           </thead>
@@ -49,10 +49,10 @@ const VpnPlanTable: React.FC<VpnPlanTableProps> = ({
                   </td>
                 ))}
                 {showRemoveBtn && (
-                  <td className="px-6 align-text-top py-4">
+                  <td className="px-6  align-text-top py-4">
                     <button
                       onClick={() => onRemove?.(rowIdx)}
-                      className="bg-red-500 rounded-lg text-white py-1 px-3"
+                      className="bg-red-500 rounded-lg cursor-pointer text-white py-1 px-3"
                     >
                       Remove
                     </button>
