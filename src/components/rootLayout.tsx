@@ -9,7 +9,7 @@ import ReduxProvider from "@/components/ReduxProvider";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isAuthPage = pathname === "/login" || pathname === "/signup";
+  const isAuthPage = pathname === "/login" || pathname === "/signup" || pathname === "/forgot-password" || pathname === "reset-password";
 
   return (
     <ReduxProvider>
