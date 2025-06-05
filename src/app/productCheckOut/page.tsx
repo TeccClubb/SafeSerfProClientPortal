@@ -15,8 +15,11 @@ import { usePlans } from "@/lib/hooks/usePlans";
  // adjust if file path is different
 // import { Plan } from "@/hooks/usePlans";
 import { Plan } from "@/lib/hooks/usePlans";
+import { useSession } from "next-auth/react";
 
  function ProductConfigurationCheckOut() {
+  const router = useRouter();
+  const { data: session } = useSession();
   const [plan, setPlan] = useState<Plan | null>(null);
   const [showSummary, setShowSummary] = useState(true);
   const searchParams = useSearchParams();
@@ -86,10 +89,10 @@ const vat = 0;
       </div>,
     ],
   ];
-const router=useRouter();
   return (
-    <div className="p-4 lg:px-20 bg-slate-50 min-h-screen lg:text-sm text-gray-700 space-y-8">
-      <div>
+    <div className="mt-8 mx-auto bg-slate-50 min-h-screen">
+      <div className="p-4 max-w-7xl mx-auto lg:text-sm text-gray-700 space-y-8">
+      {/* <div>
         <h1 className="text-slate-700 text-lg font-semibold">Product Configuration</h1>
       </div>
 
@@ -102,21 +105,33 @@ const router=useRouter();
           onRemove={(index) =>  router.push(`/plans`)}
 
         />
-      </div>
+      </div> */}
 
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Left */}
-        <div className="w-full lg:w-1/2 bg-white p-4 shadow rounded">
+        <div className="w-full lg:w-4/7 p-4 rounded">
+        <h2 className="text-2xl font-bold mb-2">Logged-in</h2>
+
+        <div className="w-full px-4 py-4 border border-[#222E3A1A] rounded flex flex-col mb-4">
+          <span className="text-[#90969C] text-xs ">Email Address</span>
+          {session?.user?.email}
+        </div>
+
           <h2 className="text-lg font-semibold mb-2">Payment section</h2>
           <CheckoutForm
             planId={plan.id}
             amount={+(plan.original_price ?? 0) * 100}
-            className="w-full lg:w-2/3"
+            className="w-full"
           />
         </div>
 
         {/* Right */}
-        <div className="w-full lg:w-1/2 bg-white p-4 shadow rounded">
+        <div className="w-full lg:w-3/7 px-8 py-4 rounded">
+        <div className="flex items-center justify-end gap-2 my-4 mr-4">
+          <img src="/30-days.svg" alt="" />
+          <span className="text-base leading-5 font-medium">Money-back <br /> guarantee</span>
+        </div>
+
         <OrderSummaryCard
   total={amountPaid.toFixed(2)}
   vat="0.00" // If you don’t have VAT info from API
@@ -136,9 +151,11 @@ const router=useRouter();
   onRemoveCoupon={() => console.log("Removing coupon")}
 />
 
+      </div>
         </div>
       </div>
-    </div>
+    </div>    
+
   );
 }
 

@@ -52,7 +52,7 @@ export const OrderSummaryCard: FC<OrderSummaryCardProps> = ({
           <p className="text-right font-semibold"># {basePrice}</p>
         </div>
         <div className="text-sm text-gray-500 line-through">$ {originalPrice}</div>
-        <span className="bg-slate-700 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
+        <span className="bg-green-700 text-white text-xs font-semibold mr-2 px-2.5 py-1 rounded">
           Save {discountText}
         </span>
       </div>
@@ -86,7 +86,7 @@ export const OrderSummaryCard: FC<OrderSummaryCardProps> = ({
           </p>
         </div>
         <button
-          className="ml-4 flex items-center gap-1 bg-slate-700 rounded-[32px] px-3 py-1 text-white"
+          className="ml-4 flex items-center gap-1 bg-green-700 rounded-[32px] px-3 py-1 text-white"
           onClick={onRemoveCoupon}
         >
           Safesurf ✕
@@ -95,7 +95,7 @@ export const OrderSummaryCard: FC<OrderSummaryCardProps> = ({
 
 
 
-      <div className="grid grid-cols-3 gap-4 mt-4">
+      <div className="grid grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4 mt-4">
         {addons.map((addon, idx) => (
          <AddonCard key={idx} name={addon.name} added={addon.added} image={addon.image} />
         ))}

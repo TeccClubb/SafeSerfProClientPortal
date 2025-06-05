@@ -55,12 +55,15 @@ console.log(res)
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-sm p-8 bg-white border-2 border-blue-900 rounded-lg shadow-md"
       >
-        <div className="flex justify-center mb-6">
+        <div className="flex flex-col items-center justify-center mb-6">
           <img
-            src="/login-logo.png"
+            src="/logo.svg"
             alt="Logo"
             className="h-12 w-12 rotate-6"
           />
+          <h1 className="text-black text-xl font-bold mb-4">
+            Login
+          </h1>
         </div>
 
         <div className="mb-4">

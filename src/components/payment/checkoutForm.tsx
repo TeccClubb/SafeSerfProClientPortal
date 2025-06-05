@@ -209,9 +209,7 @@ const PaymentForm = ({ planId, amount, billingAddress, className }: PaymentFormP
       />
       {errors.country && <p className="text-red-600">{errors.country.message}</p>} */}
 
-      <div className="mb-4 border p-4 rounded">
-        <PaymentElement />
-      </div>
+        <PaymentElement className="mb-4" />
 
       {errorMessage && (
         <p className="text-red-600 mb-4 text-center">{errorMessage}</p>
@@ -251,17 +249,17 @@ const CheckoutForm = ({ planId, amount, className, billingAddress }: CheckoutFor
     mode: "payment",
     amount,
     currency: "usd",
-    appearance: {
-      variables: {
-        colorPrimary: "#101418",
-        colorBackground: "#ffffff00",
-        borderRadius: "14px",
-        colorText: "#101418",
-        colorSuccess: "#2e7d32",
-        colorDanger: "#d32f2f",
-        colorWarning: "#ed6c02",
-      },
-    },
+    // appearance: {
+    //   variables: {
+    //     colorPrimary: "#101418",
+    //     colorBackground: "#ffffff00",
+    //     borderRadius: "14px",
+    //     colorText: "#101418",
+    //     colorSuccess: "#2e7d32",
+    //     colorDanger: "#d32f2f",
+    //     colorWarning: "#ed6c02",
+    //   },
+    // },
   };
   return (
     <Elements stripe={stripePromise} options={options}>

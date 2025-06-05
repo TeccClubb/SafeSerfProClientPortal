@@ -1,34 +1,34 @@
 // app/api/auth/[...nextauth]/route.ts
-import { LOGIN_ROUTE } from '@/lib/utils/apiRoutes';
-import NextAuth, { SessionStrategy } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import { AUTH_SECRET, LOGIN_ROUTE } from "@/lib/utils/apiRoutes";
+import NextAuth, { SessionStrategy } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 // import { API_BASE_URL } from '@/lib/constrants';
 // import { LOGIN_ROUTE } from '@/lib/constrants';
 
 const authOptions = {
   providers: [
     CredentialsProvider({
-      name: 'Laravel Login',
+      name: "Laravel Login",
       credentials: {
-        email: { label: 'Email', type: 'text' },
-        password: { label: 'Password', type: 'password' },
-        device_id: { label: 'device_id', type: 'text', optional: true }, // Optional device ID
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+        device_id: { label: "device_id", type: "text", optional: true }, // Optional device ID
       },
       async authorize(credentials) {
         const res = await fetch("https://safesurf.tecclubb.com/api/login", {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             email: credentials?.email,
             password: credentials?.password,
-            device_id: credentials?.device_id || '', // Optional device ID
+            device_id: credentials?.device_id || "", // Optional device ID
           }),
         });
 
         const data = await res.json();
 
         if (!res.ok || !data.access_token) {
-          throw new Error(data.message || 'Invalid credentials');
+          throw new Error(data.message || "Invalid credentials");
         }
 
         return {
@@ -61,12 +61,12 @@ const authOptions = {
     },
   },
   session: {
-    strategy: 'jwt' as SessionStrategy,
+    strategy: "jwt" as SessionStrategy,
     maxAge: 60 * 60 * 24,
   },
-  secret: "karimkhan", // You can generate one at https://generate-secret.vercel.app/32
+  secret: AUTH_SECRET,
   pages: {
-    signIn: '/login',
+    signIn: "/login",
   },
 };
 

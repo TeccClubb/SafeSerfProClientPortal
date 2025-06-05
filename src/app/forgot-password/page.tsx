@@ -59,7 +59,7 @@ export default function ForgotPassword() {
       >
         <div className="flex flex-col items-center justify-center mb-6">
           <img
-            src="/login-logo.png"
+            src="/logo.svg"
             alt="Logo"
             className="h-12 w-12 rotate-6"
           />
