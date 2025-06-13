@@ -1,5 +1,5 @@
 // app/api/auth/[...nextauth]/route.ts
-import { AUTH_SECRET, LOGIN_ROUTE } from "@/lib/utils/apiRoutes";
+import { API_BASE_URL, AUTH_SECRET, LOGIN_ROUTE } from "@/lib/utils/apiRoutes";
 import NextAuth, { SessionStrategy } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 // import { API_BASE_URL } from '@/lib/constrants';
@@ -16,14 +16,14 @@ const authOptions = {
         device_name: { label: "device_name", type: "text", optional: true }, // Optional device name  
       },
       async authorize(credentials) {
-        const res = await fetch("https://safesurf.tecclubb.com/api/login", {
+        const res = await fetch(`${API_BASE_URL}/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             email: credentials?.email,
             password: credentials?.password,
             device_id: credentials?.device_id || "", // Optional device ID
-            device_name:credentials?.device_name
+            device_name: credentials?.device_name
           }),
         });
 
