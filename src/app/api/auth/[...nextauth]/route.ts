@@ -13,6 +13,7 @@ const authOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
         device_id: { label: "device_id", type: "text", optional: true }, // Optional device ID
+        device_name: { label: "device_name", type: "text", optional: true }, // Optional device name  
       },
       async authorize(credentials) {
         const res = await fetch("https://safesurf.tecclubb.com/api/login", {
@@ -22,6 +23,7 @@ const authOptions = {
             email: credentials?.email,
             password: credentials?.password,
             device_id: credentials?.device_id || "", // Optional device ID
+            device_name:credentials?.device_name
           }),
         });
 

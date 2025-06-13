@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import Link from 'next/link';
 import { HOME_PAGE_PATH } from '@/lib/pathname';
 import { getOrCreateDeviceId } from '@/components/deviceId';
+import getDeviceName from '@/components/getDeviceName';
  
 
 type FormValues = {
@@ -30,15 +31,20 @@ export default function LoginForm() {
   const onSubmit = async (data: FormValues) => {
     setLoading(true);
     setError('');
- const deviceId = getOrCreateDeviceId();
-    const res = await signIn('credentials', {
-      redirect: false,
-      email: data.email,
-      password: data.password,
-      device_id: deviceId, // Pass the device ID to the signIn function
-    });
-console.log(res)
-    setLoading(false);
+    const deviceId = getOrCreateDeviceId();
+    const deviceName = getDeviceName(); // or allow user to input manually
+    console.log('Device ID:', deviceId);
+    console.log('Device Name:', deviceName);
+        const res = await signIn('credentials', {
+          redirect: false,
+          email: data.email,
+          password: data.password,
+          device_id: deviceId, // Pass the device ID to the signIn function
+          device_name: deviceName, // Pass the device name to the signIn function
+
+        });
+    console.log(res)
+        setLoading(false);
 
     if (res?.ok) {
       // toast.success(res.)
