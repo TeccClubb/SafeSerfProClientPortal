@@ -7,6 +7,7 @@ type UserStatsType = {
   purchases: number;
   servers: number;
   tickets: number;
+  devices: number;
 };
 
 // Define the expected structure of the API response

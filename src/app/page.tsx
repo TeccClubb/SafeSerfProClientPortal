@@ -69,7 +69,7 @@ const { userStats, loading, error } = useUserStats();
   const statsData = [
     { label: 'Tickets', value: userStats?.tickets ?? 0, color: 'text-red-500 border-red-500 text-sm font-medium' },
     { label: 'Subscriptions', value: userStats?.purchases??0, color: 'text-green-500 border-green-500 text-sm font-medium' },
-    { label: 'Devices', value: 0, color: 'text-blue-500 border-blue-500 text-sm font-medium' },
+    { label: 'Devices', value: userStats?.devices??0, color: 'text-blue-500 border-blue-500 text-sm font-medium' },
     { label: 'DNS', value: 4, color: 'text-slate-500 border-indigo-500 text-sm font-medium' },
     { label: 'VPN Servers',value: userStats?.servers??0, color: 'text-slate-500 border-purple-500 text-sm font-medium' },
   ];
