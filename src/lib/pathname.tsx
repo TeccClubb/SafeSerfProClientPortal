@@ -1,5 +1,5 @@
 export const HOME_PAGE_PATH = "/";
-
+export const LOGIN_PAGE_PATH="login"
 export const OVERVIEW_PAGE_PATH="/";
 export const CREATE_TICKET_PAGE_PATH="/createTicket";
 export const DEVICES_PAGE_PATH="/devices";

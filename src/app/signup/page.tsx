@@ -5,6 +5,10 @@ import { FormInput } from '@/components/ui/FormInput';
 // import { useSignup } from '@/hooks/useSignup';
 import { useSignup } from '@/lib/hooks/useSignup';
 import Link from "next/link";
+import { Router } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import { LOGIN_PAGE_PATH } from '@/lib/pathname';
 
 type FormValues = {
   
@@ -21,7 +25,7 @@ export default function SignupForm() {
   } = useForm<FormValues>();
 
   const { signup, loading, error } = useSignup();
-
+const router=useRouter()
   const onSubmit = async (data: FormValues) => {
     try {
       // Map `username` to `name` for API
@@ -31,12 +35,17 @@ export default function SignupForm() {
         password: data.password,
       };
       const response = await signup(payload);
-      console.log('Signup success:', response);
+      
+      if(response.status){
+        console.log("//////////////////")
+        console.log('Signup success:', response);
+        router.replace(LOGIN_PAGE_PATH)
+      }
       // Optionally: Redirect or show a toast
     } catch (err) {
       console.error('Signup failed');
     }
-  };
+  };  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50">

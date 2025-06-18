@@ -20,7 +20,13 @@ const PlanCard: React.FC<PlanCardProps> = ({
 }) => {
     // Use all features, not just enabled ones
     const allFeatures = plan.features;
+const handlePrice = () => {
+  const original = parseFloat(plan.original_price || "0");
+  const discount = parseFloat(plan.discount_price || "0");
+  const finalPrice = original - discount;
 
+  return `$${finalPrice.toFixed(2)}`; // format to 2 decimal places
+};
     return (
         <div
             onClick={onSelect}
@@ -41,7 +47,7 @@ const PlanCard: React.FC<PlanCardProps> = ({
                         {plan.name}
                     </h3>
                     <p className="text-2xl font-bold text-slate-900 mt-2">
-                        {plan.original_price}
+                        {handlePrice()}
                         <span className="text-sm font-normal">/month</span>
                     </p>
                     <ul className="mt-4 text-sm text-gray-600 space-y-1">

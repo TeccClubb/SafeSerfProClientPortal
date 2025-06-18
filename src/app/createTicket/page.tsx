@@ -11,6 +11,7 @@ import { useSession } from "next-auth/react";
 import { useTicket } from "@/lib/hooks/useTicket";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { HOME_PAGE_PATH } from "@/lib/pathname";
 
 
 export default function CreateTicketPage() {
@@ -38,7 +39,7 @@ export default function CreateTicketPage() {
         token
       );
       toast.success("Ticket created successfully!");
-      router.push('/overview');
+      router.push(HOME_PAGE_PATH);
       reset();
     } catch {
       alert("Failed to create ticket. Please try again.");
