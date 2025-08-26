@@ -7,11 +7,16 @@ import { Menu, X } from 'lucide-react';
 import { signOut } from "next-auth/react";
 import { usePathname, useRouter } from 'next/navigation';
 import { HOME_PAGE_PATH, PLANS_PAGE_PATH } from '@/lib/pathname';
+import { useSession } from 'next-auth/react';
+
 
 const Navbar = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+    const { data: session, status } = useSession();
+
+  // const token = (session?.user as any)?.access_token;
 
   const navLinkClass = (href: string) =>
     `${pathname === href ? 'text-black font-semibold' : 'text-gray-600'} hover:text-black`;
@@ -65,15 +70,26 @@ const Navbar = () => {
               className="object-cover"
             />
           </div>
-          <button
-            onClick={async () => {
-              await signOut({redirect: false});
-              router.refresh()
-            }}
-            className="hover:text-black text-gray-600 cursor-pointer"
-          >
-            Logout
-          </button>
+          
+         {/* Login / Logout */}
+          {session ? (
+            <button
+              onClick={async () => {
+                await signOut({ redirect: false });
+                router.refresh();
+              }}
+              className="hover:text-black text-gray-600 cursor-pointer"
+            >
+              Logout
+            </button>
+          ) : (
+            <button
+              onClick={() => router.push("/login")}
+              className="hover:text-black text-gray-600 cursor-pointer"
+            >
+              Login
+            </button>
+          )}
         </div>
       </div>
 

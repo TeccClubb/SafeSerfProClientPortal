@@ -81,6 +81,8 @@ export default function CreateTicketPage() {
                 { value: "Marketing", label: "Marketing" },
                 { value: "IT", label: "IT" },
                 { value: "HR", label: "HR" },
+                { value: "Sales", label: "Sales" },
+                { value: "Technical Support", label: "Technical Support" },
               ]}
               registration={register("department", { required: "Department is required" })}
               error={errors.department}

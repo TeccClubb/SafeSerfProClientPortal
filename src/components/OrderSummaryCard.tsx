@@ -95,11 +95,11 @@ export const OrderSummaryCard: FC<OrderSummaryCardProps> = ({
 
 
 
-      <div className="grid grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4 mt-4">
+      {/* <div className="grid grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4 mt-4">
         {addons.map((addon, idx) => (
          <AddonCard key={idx} name={addon.name} added={addon.added} image={addon.image} />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

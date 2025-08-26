@@ -7,20 +7,33 @@ import { AUTH_SECRET } from "./lib/utils/apiRoutes";
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: AUTH_SECRET });
 
-  if (
-    req.nextUrl.pathname === "/login" ||
-    req.nextUrl.pathname === "/signup" ||
-    req.nextUrl.pathname === "/forgot-password" ||
-    req.nextUrl.pathname === "/reset-password" ||
-    req.nextUrl.pathname === "/email-verify"
-  ) {
-    if (token) {
+  // Public routes (accessible without login)
+  const publicRoutes = [
+    "/login",
+    "/signup",
+    "/forgot-password",
+    "/reset-password",
+    "/email-verify",
+    "/plans",  
+    "/knowledge-base"
+  ];
+
+  if (publicRoutes.includes(req.nextUrl.pathname)) {
+    // If user is logged in, block auth-related pages
+    if (
+      token &&
+      ["/login", "/signup", "/forgot-password", "/reset-password", "/email-verify"].includes(
+        req.nextUrl.pathname
+      )
+    ) {
       return NextResponse.redirect(new URL("/", req.url));
     }
-  } else {
-    if (!token) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
+    return NextResponse.next();
+  }
+
+  // All other routes require login
+  if (!token) {
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   return NextResponse.next();
@@ -37,7 +50,7 @@ export const config: NextConfig = {
     "/createTicket",
     "/devices",
     "/payment-processing",
-    "/plans",
+    "/plans", // still matched but handled as public above
     "/product",
     "/productCheckOut",
     "/referFriend",

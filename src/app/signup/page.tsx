@@ -2,12 +2,12 @@
 
 import { useForm } from 'react-hook-form';
 import { FormInput } from '@/components/ui/FormInput';
-// import { useSignup } from '@/hooks/useSignup';
+ 
 import { useSignup } from '@/lib/hooks/useSignup';
 import Link from "next/link";
-import { Router } from 'lucide-react';
+ 
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
+ 
 import { LOGIN_PAGE_PATH } from '@/lib/pathname';
 
 type FormValues = {
@@ -51,7 +51,7 @@ const router=useRouter()
     <div className="min-h-screen flex items-center justify-center bg-slate-50">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-sm p-8 bg-white border-2 border-gray-200 rounded-lg shadow-md"
+        className="w-full max-w-sm p-8 bg-white border-2 border-blue-900 rounded-lg shadow-md"
       >
         <div className="flex flex-col items-center justify-center mb-6">
           <img
