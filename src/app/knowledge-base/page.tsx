@@ -2,7 +2,7 @@ export default function KnowledgeBasePage() {
   return (
     <div className="p-4 lg:px-20 bg-slate-50 text-black min-h-screen lg:text-sm space-y-10">
       {/* Header */}
-      <header className="space-y-2">
+      <header className="space-y-2">   
         <h1 className="text-3xl font-bold">SafeSurf VPN Knowledge Base</h1>
         <p className="text-gray-600">
           Find answers to common questions, setup guides, and troubleshooting tips for SafeSurf VPN.

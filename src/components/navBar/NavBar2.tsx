@@ -25,10 +25,10 @@ const Navbar_Below = () => {
                 </div>
 
                 <div onClick={()=>router.push("/vpnCrediental")} className="flex items-center gap-1 cursor-pointer text-gray-700">
-                    <Image src="/overview/vpncrediental.png" alt="device" width={20} height={20}>
+                    {/* <Image src="/overview/vpncrediental.png" alt="device" width={20} height={20}>
 
                     </Image>
-                    <span className='text-slate-600 text-base font-normal'>VPN Credential</span>
+                    <span className='text-slate-600 text-base font-normal'>VPN Credential</span> */}
                 </div>
             </div>
   );

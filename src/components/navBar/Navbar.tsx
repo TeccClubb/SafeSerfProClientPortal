@@ -53,6 +53,7 @@ const Navbar = () => {
           <Link href={PLANS_PAGE_PATH} className={navLinkClass("/plans")}>Plans</Link>
           <Link href="/knowledge-base" className={navLinkClass("/knowledge-base")}>Knowledge Base</Link>
           <Link href="/referFriend" className={navLinkClass("/referFriend")}>Refer a friend</Link>
+          <Link href="/term_and_policy" className={navLinkClass("/term_and_policy")}>Privacy Policy</Link>
           <Link
             href="/support"
             className={`${pathname === '/support'
@@ -101,6 +102,7 @@ const Navbar = () => {
           <Link href={PLANS_PAGE_PATH} className={navLinkClass("/plans")}>Plans</Link>
           <Link href="/knowledge-base" className={navLinkClass("/knowledge-base")}>Knowledge Base</Link>
           <Link href="/referFriend" className={navLinkClass("/referFriend")}>Refer a friend</Link>
+          <Link href="/term_and_policy" className={navLinkClass("/term_and_policy")}>Privacy Policy</Link>
           <Link
             href="/support"
             className={`${pathname === '/support'

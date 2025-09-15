@@ -34,4 +34,6 @@ export const AUTH_SECRET = process.env.AUTH_SECRET;
 
 
 export const GET_PLANS_ROUTE = API_BASE_URL + "/plans";
+export const GET_OPTIONS_TOS_ROUTE = API_BASE_URL + "/options/tos";
+export const GET_OPTIONS_PRIVACY_ROUTE = API_BASE_URL + "/options/privacy_policy";
 export const GET_SERVER_ROUTE = API_BASE_URL + "/servers";
