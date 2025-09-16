@@ -1,7 +1,6 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { FormInput } from '@/components/ui/FormInput';
@@ -10,6 +9,9 @@ import Link from 'next/link';
 import { HOME_PAGE_PATH } from '@/lib/pathname';
 import { getOrCreateDeviceId } from '@/components/deviceId';
 import getDeviceName from '@/components/getDeviceName';
+import axios, { AxiosError } from 'axios';
+import { API_BASE_URL } from '@/lib/utils/apiRoutes';
+import { User } from 'next-auth';
  
 
 type FormValues = {
@@ -24,30 +26,63 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const onSubmit = async (data: FormValues) => {
     setLoading(true);
-    setError('');
+    setError("");
     const deviceId = getOrCreateDeviceId();
     const deviceName = getDeviceName();
-        const res = await signIn('credentials', {
-          redirect: false,
-          email: data.email,
-          password: data.password,
-          device_id: deviceId, // Pass the device ID to the signIn function
-          device_name: deviceName, // Pass the device name to the signIn function
+    try {
+      const res = await axios
+        .post<{
+          status: boolean;
+          message: string;
+          user: User;
+          access_token: string;
+        }>(
+          `${API_BASE_URL}/login`,
+          {
+            body: JSON.stringify({
+              email: data.email,
+              password: data.password,
+              device_id: deviceId,
+              device_name: deviceName,
+            }),
+          },
+          {
+            headers: { Accept: "application/json" },
+          }
+        )
+        .then((res) => res.data);
 
+      if (res.status) {
+        toast.success(res.message);
+        await signIn("credentials", {
+          callbackUrl: HOME_PAGE_PATH,
+          id: res.user.id,
+          name: res.user.name,
+          email: res.user.email,
+          access_token: res.access_token,
         });
-        setLoading(false);
-
-    if (res?.ok) {
-      router.push(HOME_PAGE_PATH);
-      toast.success('Login successful!');
-    } else {
-      setError(res?.error || 'Login failed. Please try again.');
+      } else {
+        toast.error(res.message);
+        setError(res.message);
+      }
+    } catch (error) {
+      const message =
+        error instanceof AxiosError
+          ? error.response
+            ? error.response.data.message
+            : error.message
+          : error instanceof Error
+          ? error.message
+          : "Failed to login";
+      toast.error(message);
+      setError(message);
+    } finally {
+      setLoading(false);
     }
   };
 
