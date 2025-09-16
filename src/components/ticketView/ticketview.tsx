@@ -55,7 +55,6 @@ export  function TicketViews() {
                 }
             );
 
-            console.log("Reply submitted:", response.data);
             setUserMessages(response.data.ticket.messages);
 
             // Optional: Refresh messages or clear fields

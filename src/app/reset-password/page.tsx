@@ -62,8 +62,6 @@ const ResetPasswordForm: FC = () => {
         )
         .then((res) => res.data);
 
-      console.log(res);
-
       if (res.status) {
         toast.success(res.message);
         reset();

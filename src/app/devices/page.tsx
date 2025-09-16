@@ -13,15 +13,12 @@ export default function DevicesPage() {
 
 
 const handleRemoveDevice= (deviceId: string) => {
-  console.log("Removing device with ID:", deviceId);
-
   axios.delete(`${API_BASE_URL}/devices/${deviceId}`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${(session?.user as any)?.access_token}`,
     },
-  }).then((response) => {
-    console.log("Device removed successfully:", response.data);
+  }).then(() => {
     setDeviceData((prevData) => prevData.filter(device => device[0] !== `#${deviceId}`));
   }).catch((error) => {
     console.error("Error removing device:", error);
@@ -40,7 +37,6 @@ const handleRemoveDevice= (deviceId: string) => {
       },
     })
     .then((response) => {
-      console.log("Devices fetched successfully:", response.data);
 
       const devices = response.data.devices || [];
 

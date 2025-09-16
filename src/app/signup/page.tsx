@@ -37,8 +37,6 @@ const router=useRouter()
       const response = await signup(payload);
       
       if(response.status){
-        console.log("//////////////////")
-        console.log('Signup success:', response);
         router.replace(LOGIN_PAGE_PATH)
       }
       // Optionally: Redirect or show a toast

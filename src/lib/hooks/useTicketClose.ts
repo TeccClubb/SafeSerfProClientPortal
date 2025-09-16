@@ -28,7 +28,6 @@ const router=useRouter();
         }
       );
 
-      console.log("Ticket closed successfully:", response.data);
       setticketClose(response.data.ticket);
       router.push('/'); // Redirect to tickets page on success
      

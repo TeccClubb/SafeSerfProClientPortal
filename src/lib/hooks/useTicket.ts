@@ -120,16 +120,12 @@ export function useTicketList(token?: string) {
                 },
             });
 
-            console.log("Fetching tickets with token:", token);
-            console.log("Raw response:", response);
-
             if (!response.ok) {
                 const errorText = await response.text();
                 throw new Error(errorText || `Error: ${response.statusText}`);
             }
 
             const data = await response.json();
-            console.log("Fetched ticket data:", data); // See what's actually returned
             setTickets(data?.tickets || []);
         } catch (err: any) {
             console.error("Error fetching tickets:", err);

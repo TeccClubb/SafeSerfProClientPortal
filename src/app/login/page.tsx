@@ -32,9 +32,7 @@ export default function LoginForm() {
     setLoading(true);
     setError('');
     const deviceId = getOrCreateDeviceId();
-    const deviceName = getDeviceName(); // or allow user to input manually
-    console.log('Device ID:', deviceId);
-    console.log('Device Name:', deviceName);
+    const deviceName = getDeviceName();
         const res = await signIn('credentials', {
           redirect: false,
           email: data.email,
@@ -43,11 +41,9 @@ export default function LoginForm() {
           device_name: deviceName, // Pass the device name to the signIn function
 
         });
-    console.log(res)
         setLoading(false);
 
     if (res?.ok) {
-      // toast.success(res.)
       router.push(HOME_PAGE_PATH);
       toast.success('Login successful!');
     } else {

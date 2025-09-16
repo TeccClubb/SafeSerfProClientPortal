@@ -24,7 +24,6 @@ const useTicketDetails = (ticketId: number) => {
           maxBodyLength: Infinity,
         });
 
-        console.log("Fetched ticket details:", response.data);
         setData(response.data.ticket);
       } catch (err: any) {
         console.error("Error fetching ticket:", err);

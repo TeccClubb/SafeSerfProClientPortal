@@ -1,6 +1,5 @@
     function getDeviceName(): string {
     const ua = navigator.userAgent;
-    console.log("User Agent:", ua);
     if (/windows phone/i.test(ua)) return "Windows Phone";
     if (/android/i.test(ua)) return "Android Device";
     if (/iPad|iPhone|iPod/.test(ua)) return "iOS Device";
