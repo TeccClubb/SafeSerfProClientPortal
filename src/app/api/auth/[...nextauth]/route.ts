@@ -1,44 +1,24 @@
-// app/api/auth/[...nextauth]/route.ts
-import { API_BASE_URL, AUTH_SECRET, LOGIN_ROUTE } from "@/lib/utils/apiRoutes";
-import NextAuth, { SessionStrategy } from "next-auth";
+import { AUTH_SECRET } from "@/lib/utils/apiRoutes";
+import NextAuth, { SessionStrategy, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-// import { API_BASE_URL } from '@/lib/constrants';
-// import { LOGIN_ROUTE } from '@/lib/constrants';
 
 const authOptions = {
   providers: [
     CredentialsProvider({
       name: "Laravel Login",
       credentials: {
+        id: { label: "Id", type: "text" },
+        name: { label: "Name", type: "text" },
         email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" },
-        device_id: { label: "device_id", type: "text", optional: true }, // Optional device ID
-        device_name: { label: "device_name", type: "text", optional: true }, // Optional device name  
+        access_token: { label: "Access Token", type: "text" },
       },
       async authorize(credentials) {
-        const res = await fetch(`${API_BASE_URL}/login`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: credentials?.email,
-            password: credentials?.password,
-            device_id: credentials?.device_id || "", // Optional device ID
-            device_name: credentials?.device_name
-          }),
-        });
-
-        const data = await res.json();
-
-        if (!res.ok || !data.access_token) {
-          throw new Error(data.message || "Invalid credentials");
-        }
-
         return {
-          id: data.user.id,
-          name: data.user.name,
-          email: data.user.email,
-          access_token: data.access_token,
-        };
+          id: credentials?.id,
+          name: credentials?.name,
+          email: credentials?.email,
+          access_token: credentials?.access_token,
+        } as User;
       },
     }),
   ],
